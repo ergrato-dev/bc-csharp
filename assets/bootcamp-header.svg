@@ -1,23 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200"
-     role="img" aria-labelledby="btitle bdesc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320"
+     role="img" aria-labelledby="btitle bdesc" font-family="system-ui,-apple-system,'Segoe UI',Inter,Roboto,sans-serif">
   <title id="btitle">Bootcamp C# Zero to Hero</title>
-  <desc id="bdesc">Banner: Bootcamp C# Zero to Hero — 26 semanas, 260 horas, .NET 10, C# 14, del lenguaje a producción</desc>
-  <rect width="800" height="200" fill="#0d1117"/>
-  <rect x="0" y="0" width="4" height="200" fill="#512BD4"/>
-  <polygon points="200,15 273.6,57.5 273.6,142.5 200,185 126.4,142.5 126.4,57.5"
-           fill="#512BD4" fill-opacity="0.06" stroke="#512BD4" stroke-width="1.5" stroke-opacity="0.15"/>
-  <text x="28" y="44" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" letter-spacing="4" fill="#484f58">BOOTCAMP</text>
-  <text x="28" y="106" font-family="system-ui,-apple-system,sans-serif" font-size="58" font-weight="700">
-    <tspan fill="#f0f6fc">C</tspan><tspan fill="#7a5cf0">#</tspan><tspan fill="#f0f6fc" font-size="34" dx="14">.NET 10</tspan>
-  </text>
-  <text x="28" y="134" font-family="system-ui,-apple-system,sans-serif" font-size="17" fill="#8b949e">Zero to Hero</text>
-  <text x="28" y="170" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#484f58">Del lenguaje a producción: internals · concurrencia · ASP.NET Core · gRPC · Blazor · MAUI</text>
-  <g font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600">
-    <rect x="560" y="40" width="210" height="34" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="665" y="62" text-anchor="middle" fill="#f0f6fc">26 semanas · 260 horas</text>
-    <rect x="560" y="84" width="210" height="34" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="665" y="106" text-anchor="middle" fill="#f0f6fc">10 h / semana</text>
-    <rect x="560" y="128" width="210" height="34" rx="6" fill="#3f21a6" stroke="#512BD4"/>
-    <text x="665" y="150" text-anchor="middle" fill="#f0f6fc">C# 14 · .NET 10 LTS</text>
+  <desc id="bdesc">Banner del bootcamp C# Zero to Hero: 26 semanas, 260 horas, .NET 10 y C# 14. Muestra un logotipo C# hexagonal y una ruta de 8 fases desde Zero hasta Hero.</desc>
+
+  <!-- Fondo -->
+  <rect width="1200" height="320" rx="16" fill="#0d1117"/>
+  <rect x="0" y="0" width="6" height="320" fill="#512BD4"/>
+
+  <!-- Rejilla de puntos sutil -->
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#21262d"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#7a5cf0"/>
+    </marker>
+  </defs>
+  <rect x="6" y="0" width="1194" height="320" rx="16" fill="url(#dots)"/>
+
+  <!-- ══════════ LOGO HEXAGONAL C# ══════════ -->
+  <g transform="translate(150 150)">
+    <polygon points="0,-118 102,-59 102,59 0,118 -102,59 -102,-59" fill="#512BD4"/>
+    <polygon points="0,-96 83,-48 83,48 0,96 -83,48 -83,-48" fill="#3f21a6"/>
+    <polygon points="0,-96 83,-48 83,48 0,96 -83,48 -83,-48" fill="none" stroke="#7a5cf0" stroke-width="2"/>
+    <!-- C -->
+    <text x="-28" y="34" text-anchor="middle" font-size="104" font-weight="800" fill="#f0f6fc">C</text>
+    <!-- # geométrico -->
+    <g stroke="#f0f6fc" stroke-width="7" stroke-linecap="round">
+      <line x1="30" y1="-22" x2="74" y2="-22"/>
+      <line x1="26" y1="2" x2="70" y2="2"/>
+      <line x1="46" y1="-40" x2="38" y2="20"/>
+      <line x1="66" y1="-40" x2="58" y2="20"/>
+    </g>
+  </g>
+
+  <!-- ══════════ TÍTULO ══════════ -->
+  <text x="300" y="70" font-size="13" font-weight="700" letter-spacing="3" fill="#8b949e">BOOTCAMP · .NET 10 · C# 14</text>
+  <text x="298" y="150" font-size="76" font-weight="800" fill="#f0f6fc">Zero to Hero</text>
+  <rect x="300" y="160" width="120" height="6" rx="3" fill="#7a5cf0"/>
+  <text x="300" y="192" font-size="18" fill="#8b949e">Del lenguaje a producción: internals · rendimiento · concurrencia · ASP.NET Core · gRPC · Blazor · MAUI</text>
+
+  <!-- ══════════ BADGES ══════════ -->
+  <g font-size="14" font-weight="700" text-anchor="middle">
+    <rect x="990" y="44" width="170" height="36" rx="18" fill="#161b22" stroke="#30363d"/>
+    <text x="1075" y="67" fill="#f0f6fc">26 semanas · 260 h</text>
+    <rect x="990" y="90" width="170" height="36" rx="18" fill="#161b22" stroke="#30363d"/>
+    <text x="1075" y="113" fill="#f0f6fc">10 h / semana</text>
+    <rect x="990" y="136" width="170" height="36" rx="18" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="1075" y="159" fill="#f0f6fc">Linux-first · LTS</text>
+  </g>
+
+  <!-- ══════════ RUTA ZERO → HERO (8 fases) ══════════ -->
+  <g transform="translate(300 232)">
+    <text x="0" y="-12" font-size="11" font-weight="700" letter-spacing="3" fill="#484f58">RUTA · 8 FASES</text>
+    <!-- Segmentos: intensidad creciente, colores sólidos -->
+    <rect x="0"   y="0" width="100" height="14" rx="7" fill="#21262d"/>
+    <rect x="106" y="0" width="100" height="14" rx="7" fill="#2a1f5c"/>
+    <rect x="212" y="0" width="100" height="14" rx="7" fill="#33247a"/>
+    <rect x="318" y="0" width="100" height="14" rx="7" fill="#3f21a6"/>
+    <rect x="424" y="0" width="100" height="14" rx="7" fill="#512BD4"/>
+    <rect x="530" y="0" width="100" height="14" rx="7" fill="#6a48e6"/>
+    <rect x="636" y="0" width="100" height="14" rx="7" fill="#7a5cf0"/>
+    <rect x="742" y="0" width="100" height="14" rx="7" fill="#9b84f6"/>
+    <!-- Etiquetas -->
+    <g font-size="11" fill="#8b949e" text-anchor="middle">
+      <text x="50"  y="34">Fundamentos</text>
+      <text x="156" y="34">POO</text>
+      <text x="262" y="34">C# moderno</text>
+      <text x="368" y="34">Internals</text>
+      <text x="474" y="34">Concurrencia</text>
+      <text x="580" y="34">gRPC · Eventos</text>
+      <text x="686" y="34">Blazor · MAUI</text>
+      <text x="792" y="34">Producción</text>
+    </g>
+    <!-- Extremos -->
+    <text x="-14" y="12" font-size="13" font-weight="800" fill="#484f58" text-anchor="end">0</text>
+    <g transform="translate(862 7)">
+      <polygon points="0,-11 3.2,-3.6 11,-3.4 4.8,1.4 7,9 0,4.6 -7,9 -4.8,1.4 -11,-3.4 -3.2,-3.6" fill="#d29922"/>
+    </g>
   </g>
 </svg>

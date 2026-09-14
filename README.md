@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/bootcamp-header.svg" alt="Bootcamp C# Zero to Hero" width="800">
+  <img src="assets/bootcamp-header.svg" alt="Bootcamp C# Zero to Hero" width="1200">
 </p>
 
 <p align="center">
