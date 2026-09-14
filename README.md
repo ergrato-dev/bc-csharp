@@ -10,6 +10,10 @@
   <a href="#"><img src="https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white" alt=".NET 10"></a>
 </p>
 
+<p align="center">
+  <a href="README_EN.md"><img src="https://img.shields.io/badge/🇺🇸_English-0969DA?style=for-the-badge&logoColor=white" alt="English Version"></a>
+</p>
+
 ---
 
 ## 📋 Descripción
