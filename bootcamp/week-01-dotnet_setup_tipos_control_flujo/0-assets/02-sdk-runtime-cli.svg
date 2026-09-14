@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">SDK, runtime y CLI dotnet</title>
+  <desc id="desc">El SDK de .NET contiene la CLI dotnet, el compilador Roslyn, MSBuild y NuGet, y además incluye el runtime. El runtime contiene el CLR y la BCL. En una máquina de desarrollo se instala el SDK; en producción basta el runtime.</desc>
+  <rect width="800" height="380" rx="12" fill="#0d1117"/>
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">¿Qué instala el SDK?</text>
+  <!-- SDK caja externa -->
+  <rect x="40" y="60" width="480" height="290" rx="12" fill="#161b22" stroke="#7a5cf0" stroke-width="2"/>
+  <text x="60" y="88" font-size="14" font-weight="700" fill="#7a5cf0">.NET SDK 10.0.x</text>
+  <text x="60" y="106" font-size="11" fill="#8b949e">máquina de desarrollo · dotnet --list-sdks</text>
+  <!-- herramientas -->
+  <g font-size="12" fill="#f0f6fc" text-anchor="middle">
+    <rect x="60" y="122" width="100" height="50" rx="8" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="110" y="143" font-weight="700">CLI dotnet</text><text x="110" y="161" fill="#c9b8ff">new · build · run</text>
+    <rect x="172" y="122" width="100" height="50" rx="8" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="222" y="143" font-weight="700">Roslyn</text><text x="222" y="161" fill="#c9b8ff">compilador C#</text>
+    <rect x="284" y="122" width="100" height="50" rx="8" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="334" y="143" font-weight="700">MSBuild</text><text x="334" y="161" fill="#c9b8ff">lee .csproj</text>
+    <rect x="396" y="122" width="100" height="50" rx="8" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="446" y="143" font-weight="700">NuGet</text><text x="446" y="161" fill="#c9b8ff">paquetes</text>
+  </g>
+  <!-- Runtime caja interna -->
+  <rect x="60" y="190" width="440" height="140" rx="10" fill="#21262d" stroke="#3fb950" stroke-width="2"/>
+  <text x="80" y="216" font-size="14" font-weight="700" fill="#3fb950">.NET Runtime 10.0.x</text>
+  <text x="80" y="234" font-size="11" fill="#8b949e">suficiente para ejecutar · dotnet --list-runtimes</text>
+  <g font-size="12" fill="#f0f6fc" text-anchor="middle">
+    <rect x="80" y="250" width="190" height="60" rx="8" fill="#161b22" stroke="#6e7681"/>
+    <text x="175" y="274" font-weight="700">CLR</text><text x="175" y="294" fill="#8b949e">JIT · GC · seguridad de tipos</text>
+    <rect x="290" y="250" width="190" height="60" rx="8" fill="#161b22" stroke="#6e7681"/>
+    <text x="385" y="274" font-weight="700">BCL</text><text x="385" y="294" fill="#8b949e">System.* : Console, List, Http</text>
+  </g>
+  <!-- Lado derecho: dónde va cada uno -->
+  <g font-size="12">
+    <rect x="550" y="60" width="210" height="130" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="655" y="86" text-anchor="middle" font-weight="700" fill="#f0f6fc">Tu portátil / WSL</text>
+    <text x="655" y="112" text-anchor="middle" fill="#7a5cf0" font-weight="700">SDK completo</text>
+    <text x="655" y="134" text-anchor="middle" fill="#8b949e">compilar, ejecutar,</text>
+    <text x="655" y="152" text-anchor="middle" fill="#8b949e">depurar, tests</text>
+    <text x="655" y="176" text-anchor="middle" fill="#484f58">~ 300 MB</text>
+    <rect x="550" y="210" width="210" height="140" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text x="655" y="236" text-anchor="middle" font-weight="700" fill="#f0f6fc">Servidor / contenedor</text>
+    <text x="655" y="262" text-anchor="middle" fill="#3fb950" font-weight="700">solo runtime</text>
+    <text x="655" y="284" text-anchor="middle" fill="#8b949e">ejecuta el .dll ya compilado</text>
+    <text x="655" y="302" text-anchor="middle" fill="#8b949e">imagen más pequeña</text>
+    <text x="655" y="326" text-anchor="middle" fill="#484f58">semana 24 · Docker multi-stage</text>
+  </g>
+</svg>

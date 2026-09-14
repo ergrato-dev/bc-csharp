@@ -8,7 +8,12 @@
 
 Al finalizar esta semana, el estudiante será capaz de:
 
-- <!-- TODO: objetivos medibles derivados de los temas de teoría -->
+- Explicar qué son SDK, runtime, CLR, BCL, IL y JIT, y cómo se ejecuta un programa C#
+- Crear, compilar y ejecutar proyectos de consola con la CLI `dotnet`, y leer un `.csproj`
+- Elegir el tipo numérico correcto (`int`, `long`, `double`, `decimal`) y escribir literales con sufijos
+- Convertir entre tipos con criterio: implícita, cast, `TryParse` con cultura, y `checked` ante desbordamientos
+- Controlar el flujo con `if`, `while`, `do-while`, `for`, `foreach`, `break` y `continue`
+- Reemplazar cadenas de `if` por `switch` expression con patrones relacionales y guardas `when`
 
 ## 📚 Requisitos previos
 
@@ -33,19 +38,19 @@ week-01-dotnet_setup_tipos_control_flujo/
 
 | Archivo | Tema | Duración |
 |---------|------|:--------:|
-| [01-ecosistema-dotnet.md](1-teoria/01-ecosistema-dotnet.md) | Ecosistema dotnet | 30 min |
-| [02-cli-proyectos-y-soluciones.md](1-teoria/02-cli-proyectos-y-soluciones.md) | Cli proyectos y soluciones | 30 min |
+| [01-ecosistema-dotnet.md](1-teoria/01-ecosistema-dotnet.md) | Ecosistema .NET | 30 min |
+| [02-cli-proyectos-y-soluciones.md](1-teoria/02-cli-proyectos-y-soluciones.md) | CLI `dotnet`, proyectos y soluciones | 30 min |
 | [03-tipos-primitivos-y-variables.md](1-teoria/03-tipos-primitivos-y-variables.md) | Tipos primitivos y variables | 30 min |
 | [04-conversiones-y-operadores.md](1-teoria/04-conversiones-y-operadores.md) | Conversiones y operadores | 30 min |
 | [05-condicionales-y-bucles.md](1-teoria/05-condicionales-y-bucles.md) | Condicionales y bucles | 30 min |
-| [06-switch-expression.md](1-teoria/06-switch-expression.md) | Switch expression | 30 min |
+| [06-switch-expression.md](1-teoria/06-switch-expression.md) | `switch` expression | 30 min |
 
 ### Prácticas
 
 | Ejercicio | Concepto | Duración |
 |-----------|----------|:--------:|
-| [ejercicio-01-hola-dotnet](2-practicas/ejercicio-01-hola-dotnet/README.md) | Hola dotnet | 90 min |
-| [ejercicio-02-calculadora-switch](2-practicas/ejercicio-02-calculadora-switch/README.md) | Calculadora switch | 90 min |
+| [ejercicio-01-hola-dotnet](2-practicas/ejercicio-01-hola-dotnet/README.md) | Hola .NET: CLI, tipos, `checked`, `TryParse` | 90 min |
+| [ejercicio-02-calculadora-switch](2-practicas/ejercicio-02-calculadora-switch/README.md) | Calculadora REPL con `switch` expression | 90 min |
 
 ### Proyecto
 
