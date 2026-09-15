@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Buckets de una tabla hash</title>
+  <desc id="desc">Flujo de una búsqueda en Dictionary: la clave "mouse" pasa por GetHashCode, que produce un entero; el módulo del número de buckets da el índice 3; el bucket 3 apunta a una cadena de entradas donde se compara con Equals hasta encontrar la clave. Se muestra un array de 7 buckets, dos de ellos con entradas: el bucket 1 con "keyboard", y el bucket 3 con "cable" y "mouse" encadenadas (colisión). Abajo, reglas: Equals iguales implica hash igual, la clave no debe mutar, y el hash de string es aleatorio por proceso.</desc>
+  <rect width="800" height="460" rx="12" fill="#0d1117"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Dictionary: hash → bucket → comparar solo esa cadena</text>
+
+  <!-- pipeline -->
+  <g font-size="12">
+    <rect x="30" y="70" width="120" height="44" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="90" y="90" text-anchor="middle" font-family="ui-monospace,monospace" fill="#f0f6fc">stock["mouse"]</text>
+    <text x="90" y="106" text-anchor="middle" fill="#8b949e">clave</text>
+    <line x1="152" y1="92" x2="188" y2="92" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="192" y="70" width="130" height="44" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="257" y="90" text-anchor="middle" font-family="ui-monospace,monospace" fill="#f0f6fc">GetHashCode()</text>
+    <text x="257" y="106" text-anchor="middle" fill="#8b949e">→ 1 830 741 002</text>
+    <line x1="324" y1="92" x2="360" y2="92" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="364" y="70" width="130" height="44" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="429" y="90" text-anchor="middle" font-family="ui-monospace,monospace" fill="#f0f6fc">hash % 7</text>
+    <text x="429" y="106" text-anchor="middle" fill="#8b949e">→ bucket 3</text>
+    <line x1="496" y1="92" x2="532" y2="92" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="536" y="70" width="234" height="44" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="653" y="90" text-anchor="middle" font-family="ui-monospace,monospace" fill="#f0f6fc">Equals(entry.key, "mouse")</text>
+    <text x="653" y="106" text-anchor="middle" fill="#8b949e">solo en la cadena del bucket 3</text>
+  </g>
+
+  <!-- buckets -->
+  <text x="30" y="150" font-size="12" fill="#8b949e">_buckets (7)</text>
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <rect x="30" y="158" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="179" text-anchor="middle" fill="#484f58">0 · –</text>
+    <rect x="30" y="190" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="211" text-anchor="middle" fill="#f0f6fc">1</text>
+    <rect x="30" y="222" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="243" text-anchor="middle" fill="#484f58">2 · –</text>
+    <rect x="30" y="254" width="60" height="32" fill="#512BD4" stroke="#7a5cf0"/><text x="60" y="275" text-anchor="middle" fill="#f0f6fc">3</text>
+    <rect x="30" y="286" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="307" text-anchor="middle" fill="#484f58">4 · –</text>
+    <rect x="30" y="318" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="339" text-anchor="middle" fill="#484f58">5 · –</text>
+    <rect x="30" y="350" width="60" height="32" fill="#21262d" stroke="#6e7681"/><text x="60" y="371" text-anchor="middle" fill="#484f58">6 · –</text>
+  </g>
+  <!-- entries -->
+  <text x="150" y="150" font-size="12" fill="#8b949e">_entries: { hashCode, next, key, value }</text>
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <line x1="92" y1="206" x2="146" y2="206" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="150" y="190" width="190" height="32" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="245" y="211" text-anchor="middle" fill="#f0f6fc">"keyboard" → 12 · next –</text>
+
+    <line x1="92" y1="270" x2="146" y2="270" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="150" y="254" width="190" height="32" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="245" y="275" text-anchor="middle" fill="#f0f6fc">"cable" → 5 · next ↓</text>
+    <text x="360" y="275" fill="#d29922">Equals: false</text>
+    <line x1="245" y1="288" x2="245" y2="314" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="150" y="318" width="190" height="32" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="245" y="339" text-anchor="middle" fill="#f0f6fc">"mouse" → 30 · next –</text>
+    <text x="360" y="339" fill="#3fb950">Equals: true → 30</text>
+  </g>
+  <text x="150" y="380" font-size="12" fill="#8b949e">Colisión: dos claves en el mismo bucket se encadenan por índice. Con buen hash, cadenas de 1–2: O(1) de media.</text>
+  <text x="150" y="398" font-size="12" fill="#8b949e">count &gt; buckets → rehash a un primo mayor (redistribuye todo).</text>
+
+  <!-- reglas -->
+  <rect x="520" y="150" width="250" height="220" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="536" y="174" font-size="13" font-weight="700" fill="#f0f6fc">Contrato de una clave</text>
+  <g font-size="12" fill="#8b949e">
+    <text x="536" y="200">1. a.Equals(b) ⇒ mismo GetHashCode</text>
+    <text x="536" y="218">   (al revés no hace falta)</text>
+    <text x="536" y="246">2. No mutar la clave dentro del</text>
+    <text x="536" y="264">   diccionario: cambia el hash y</text>
+    <text x="536" y="282">   se pierde en el bucket viejo</text>
+    <text x="536" y="310">3. record / record struct los</text>
+    <text x="536" y="328">   generan por valor; class = por ref</text>
+    <text x="536" y="356" fill="#d29922">string: hash aleatorio por proceso</text>
+  </g>
+  <text x="400" y="440" text-anchor="middle" font-size="12" fill="#8b949e">HashSet&lt;T&gt; es la misma estructura sin la columna value</text>
+</svg>

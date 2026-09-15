@@ -8,7 +8,12 @@
 
 Al finalizar esta semana, el estudiante será capaz de:
 
-- <!-- TODO: objetivos medibles derivados de los temas de teoría -->
+- Predecir el efecto de pasar `int`, `List<T>` y `struct` a un método, y elegir `ref`, `out`, `in` o `params` con criterio
+- Escribir sobrecargas sin ambigüedad y métodos recursivos con caso base, sabiendo cuándo convertirlos en bucle o pila explícita
+- Manipular texto con la API de `string` (buscar, cortar, comparar con `StringComparison`) y construir salidas grandes con `StringBuilder`
+- Formatear números y fechas con alineación y cultura explícita (`InvariantCulture` vs `CurrentCulture`)
+- Elegir entre array, `List<T>`, `Dictionary<K,V>`, `HashSet<T>`, `Queue<T>` y `Stack<T>` por la complejidad de la operación dominante
+- Usar índices `^`, rangos `..` y collection expressions `[.. a, .. b]`, distinguiendo cuándo un corte copia y cuándo es una vista
 
 ## 📚 Requisitos previos
 
@@ -33,24 +38,24 @@ week-02-metodos_strings_colecciones/
 
 | Archivo | Tema | Duración |
 |---------|------|:--------:|
-| [01-metodos-y-parametros.md](1-teoria/01-metodos-y-parametros.md) | Metodos y parametros | 30 min |
-| [02-sobrecarga-y-recursion.md](1-teoria/02-sobrecarga-y-recursion.md) | Sobrecarga y recursion | 30 min |
-| [03-strings-y-stringbuilder.md](1-teoria/03-strings-y-stringbuilder.md) | Strings y stringbuilder | 30 min |
-| [04-formateo-y-cultura.md](1-teoria/04-formateo-y-cultura.md) | Formateo y cultura | 30 min |
-| [05-arrays.md](1-teoria/05-arrays.md) | Arrays | 30 min |
-| [06-list-dictionary-hashset.md](1-teoria/06-list-dictionary-hashset.md) | List dictionary hashset | 30 min |
-| [07-indices-rangos-collection-expressions.md](1-teoria/07-indices-rangos-collection-expressions.md) | Indices rangos collection expressions | 30 min |
+| [01-metodos-y-parametros.md](1-teoria/01-metodos-y-parametros.md) | Anatomía, paso por valor, `ref`/`out`/`in`/`params`, funciones locales | 30 min |
+| [02-sobrecarga-y-recursion.md](1-teoria/02-sobrecarga-y-recursion.md) | Resolución de sobrecarga, recursión, caso base, pila explícita | 30 min |
+| [03-strings-y-stringbuilder.md](1-teoria/03-strings-y-stringbuilder.md) | Inmutabilidad, API de `string`, `StringComparison`, `StringBuilder` | 30 min |
+| [04-formateo-y-cultura.md](1-teoria/04-formateo-y-cultura.md) | Formatos `N2`/`P1`/custom, alineación, `CultureInfo`, fechas | 30 min |
+| [05-arrays.md](1-teoria/05-arrays.md) | Arrays 1D, `[,]` vs `[][]`, `System.Array`, layout en memoria | 30 min |
+| [06-list-dictionary-hashset.md](1-teoria/06-list-dictionary-hashset.md) | `List`, `Dictionary`, `HashSet`, `Queue`/`Stack`, Big-O, hashing | 30 min |
+| [07-indices-rangos-collection-expressions.md](1-teoria/07-indices-rangos-collection-expressions.md) | `^`, `..`, `Index`/`Range`, collection expressions, spread | 30 min |
 
 ### Prácticas
 
 | Ejercicio | Concepto | Duración |
 |-----------|----------|:--------:|
-| [ejercicio-01-analizador-texto](2-practicas/ejercicio-01-analizador-texto/README.md) | Analizador texto | 90 min |
-| [ejercicio-02-inventario-colecciones](2-practicas/ejercicio-02-inventario-colecciones/README.md) | Inventario colecciones | 90 min |
+| [ejercicio-01-analizador-texto](2-practicas/ejercicio-01-analizador-texto/README.md) | `out`, `Dictionary`, `Sort` + rangos, `StringBuilder`, recursión sobre `Span`, `params` | 90 min |
+| [ejercicio-02-inventario-colecciones](2-practicas/ejercicio-02-inventario-colecciones/README.md) | `record struct`, `Dictionary`, `HashSet`, `Queue`, `Stack`, spread, `params ReadOnlySpan` | 90 min |
 
 ### Proyecto
 
-[3-proyecto/README.md](3-proyecto/README.md) — Inventario en memoria con búsquedas, agrupaciones y reporte de texto formateado.
+[3-proyecto/README.md](3-proyecto/README.md) — Inventario en memoria del dominio asignado: carga desde texto con `TryParseLine`, índice por clave, categorías, agrupación con rangos, cola de movimientos con deshacer, recursión y reporte alineado.
 
 ## ⏱️ Distribución del tiempo (10 horas)
 

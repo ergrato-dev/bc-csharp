@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Layout de un array en memoria y de una List</title>
+  <desc id="desc">Arriba, un array int de 5 elementos como objeto del heap: header de 16 bytes, longitud 5 y cinco enteros contiguos de 4 bytes; una variable del stack apunta al objeto. Abajo, una List int: el objeto List tiene los campos _items, _size igual a 3 y _version; _items apunta a un array interno de capacidad 4 con 3 usados y 1 libre. Al añadir un cuarto y quinto elemento, se asigna un array nuevo de capacidad 8, se copian los elementos y el antiguo queda para el GC.</desc>
+  <rect width="800" height="440" rx="12" fill="#0d1117"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Array: bloque fijo · List&lt;T&gt;: array interno que se reemplaza</text>
+
+  <!-- array -->
+  <rect x="30" y="56" width="740" height="150" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="46" y="80" font-size="13" font-weight="700" fill="#f0f6fc">int[] scores = new int[5];</text>
+  <text x="46" y="122" font-size="12" fill="#8b949e">stack</text>
+  <rect x="46" y="130" width="100" height="36" rx="6" fill="#21262d" stroke="#6e7681"/>
+  <text x="96" y="153" text-anchor="middle" font-size="12" fill="#f0f6fc">scores = 0x2C</text>
+  <line x1="148" y1="148" x2="196" y2="148" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="122" font-size="12" fill="#8b949e">heap · un solo objeto contiguo</text>
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <rect x="200" y="130" width="90" height="36" fill="#21262d" stroke="#6e7681"/><text x="245" y="153" text-anchor="middle" fill="#8b949e">header 16B</text>
+    <rect x="290" y="130" width="70" height="36" fill="#21262d" stroke="#6e7681"/><text x="325" y="153" text-anchor="middle" fill="#8b949e">Length 5</text>
+    <rect x="360" y="130" width="60" height="36" fill="#512BD4" stroke="#7a5cf0"/><text x="390" y="153" text-anchor="middle" fill="#f0f6fc">[0]</text>
+    <rect x="420" y="130" width="60" height="36" fill="#512BD4" stroke="#7a5cf0"/><text x="450" y="153" text-anchor="middle" fill="#f0f6fc">[1]</text>
+    <rect x="480" y="130" width="60" height="36" fill="#512BD4" stroke="#7a5cf0"/><text x="510" y="153" text-anchor="middle" fill="#f0f6fc">[2]</text>
+    <rect x="540" y="130" width="60" height="36" fill="#512BD4" stroke="#7a5cf0"/><text x="570" y="153" text-anchor="middle" fill="#f0f6fc">[3]</text>
+    <rect x="600" y="130" width="60" height="36" fill="#512BD4" stroke="#7a5cf0"/><text x="630" y="153" text-anchor="middle" fill="#f0f6fc">[4]</text>
+  </g>
+  <text x="360" y="190" font-size="12" fill="#8b949e">scores[i] = base + 24 + i × 4 → O(1) · Length no cambia nunca · fuera de rango: IndexOutOfRangeException</text>
+
+  <!-- list -->
+  <rect x="30" y="226" width="740" height="196" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="46" y="250" font-size="13" font-weight="700" fill="#f0f6fc">var list = new List&lt;int&gt; { 1, 2, 3 };  list.Add(4);  list.Add(5);</text>
+  <rect x="46" y="272" width="100" height="36" rx="6" fill="#21262d" stroke="#6e7681"/>
+  <text x="96" y="295" text-anchor="middle" font-size="12" fill="#f0f6fc">list = 0x40</text>
+  <line x1="148" y1="290" x2="196" y2="290" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="200" y="266" width="130" height="86" rx="6" fill="#21262d" stroke="#6e7681"/>
+  <text x="265" y="284" text-anchor="middle" font-size="12" fill="#8b949e">List&lt;int&gt; @0x40</text>
+  <g font-size="12" font-family="ui-monospace,monospace" fill="#f0f6fc">
+    <text x="210" y="304">_items = 0x58</text>
+    <text x="210" y="322">_size = 3 → 5</text>
+    <text x="210" y="340">_version = 5</text>
+  </g>
+  <!-- old array -->
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <text x="360" y="268" font-family="system-ui,sans-serif" fill="#8b949e">array @0x58 · capacidad 4</text>
+    <rect x="360" y="276" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="382" y="296" text-anchor="middle" fill="#f0f6fc">1</text>
+    <rect x="404" y="276" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="426" y="296" text-anchor="middle" fill="#f0f6fc">2</text>
+    <rect x="448" y="276" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="470" y="296" text-anchor="middle" fill="#f0f6fc">3</text>
+    <rect x="492" y="276" width="44" height="30" fill="#3f21a6" stroke="#7a5cf0"/><text x="514" y="296" text-anchor="middle" fill="#f0f6fc">4</text>
+    <text x="560" y="296" font-family="system-ui,sans-serif" fill="#3fb950">Add(4): cabe, O(1)</text>
+    <line x1="332" y1="300" x2="356" y2="292" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+  <!-- new array -->
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <text x="360" y="332" font-family="system-ui,sans-serif" fill="#8b949e">Add(5): lleno → new int[8] + Array.Copy · el de capacidad 4 es basura</text>
+    <rect x="360" y="340" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="382" y="360" text-anchor="middle" fill="#f0f6fc">1</text>
+    <rect x="404" y="340" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="426" y="360" text-anchor="middle" fill="#f0f6fc">2</text>
+    <rect x="448" y="340" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="470" y="360" text-anchor="middle" fill="#f0f6fc">3</text>
+    <rect x="492" y="340" width="44" height="30" fill="#512BD4" stroke="#7a5cf0"/><text x="514" y="360" text-anchor="middle" fill="#f0f6fc">4</text>
+    <rect x="536" y="340" width="44" height="30" fill="#3f21a6" stroke="#7a5cf0"/><text x="558" y="360" text-anchor="middle" fill="#f0f6fc">5</text>
+    <rect x="580" y="340" width="44" height="30" fill="#21262d" stroke="#6e7681"/>
+    <rect x="624" y="340" width="44" height="30" fill="#21262d" stroke="#6e7681"/>
+    <rect x="668" y="340" width="44" height="30" fill="#21262d" stroke="#6e7681"/>
+    <text x="646" y="360" text-anchor="middle" font-family="system-ui,sans-serif" fill="#484f58">libre</text>
+  </g>
+  <text x="46" y="404" font-size="12" fill="#8b949e">Capacidad ×2 al llenarse: Add es O(1) amortizado. Count = _size; Capacity = _items.Length. new List&lt;int&gt;(n) evita las copias si conoces n.</text>
+</svg>

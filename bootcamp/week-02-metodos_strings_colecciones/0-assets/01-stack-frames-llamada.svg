@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Stack frames de una cadena de llamadas</title>
+  <desc id="desc">A la izquierda, el código: Main llama a Total, que llama a ApplyTax. A la derecha, la pila de llamadas en tres instantes: solo el frame de Main; Main, Total y ApplyTax apilados con sus parámetros y locales; y de vuelta a Main tras dos return, con los frames desaparecidos. Cada frame contiene sus parámetros y variables locales; al retornar, el frame se libera.</desc>
+  <rect width="800" height="460" rx="12" fill="#0d1117"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Cada llamada crea un frame; cada return lo destruye</text>
+
+  <!-- código -->
+  <rect x="30" y="60" width="290" height="180" rx="10" fill="#161b22" stroke="#30363d"/>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">
+    <text x="46" y="84">decimal Total(decimal[] prices)</text>
+    <text x="46" y="102">{</text>
+    <text x="46" y="120">    decimal sum = 0;</text>
+    <text x="46" y="138">    foreach (var p in prices)</text>
+    <text x="46" y="156">        sum += ApplyTax(p, 0.21m);</text>
+    <text x="46" y="174">    return sum;</text>
+    <text x="46" y="192">}</text>
+    <text x="46" y="218" fill="#8b949e">decimal ApplyTax(decimal a, decimal r)</text>
+    <text x="46" y="234" fill="#8b949e">    => a * (1 + r);</text>
+  </g>
+  <text x="30" y="270" font-size="12" fill="#8b949e">Main → Total → ApplyTax</text>
+  <text x="30" y="290" font-size="12" fill="#8b949e">Parámetros y locales viven en el frame.</text>
+  <text x="30" y="308" font-size="12" fill="#8b949e">Al hacer return, el frame desaparece:</text>
+  <text x="30" y="326" font-size="12" fill="#8b949e">sum, a y r ya no existen.</text>
+  <text x="30" y="360" font-size="12" fill="#d29922">Recursión sin caso base = frames sin fin</text>
+  <text x="30" y="378" font-size="12" fill="#d29922">→ StackOverflowException (~1 MB por hilo)</text>
+
+  <!-- instante 1 -->
+  <g font-size="12">
+    <text x="410" y="70" text-anchor="middle" font-weight="700" fill="#8b949e">1 · antes</text>
+    <rect x="350" y="360" width="120" height="50" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="410" y="382" text-anchor="middle" fill="#f0f6fc">Main</text>
+    <text x="410" y="398" text-anchor="middle" fill="#8b949e">prices</text>
+  </g>
+  <!-- instante 2 -->
+  <g font-size="12">
+    <text x="560" y="70" text-anchor="middle" font-weight="700" fill="#3fb950">2 · dentro de ApplyTax</text>
+    <rect x="500" y="360" width="120" height="50" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="560" y="382" text-anchor="middle" fill="#f0f6fc">Main</text>
+    <text x="560" y="398" text-anchor="middle" fill="#8b949e">prices</text>
+    <rect x="500" y="250" width="120" height="100" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="560" y="272" text-anchor="middle" font-weight="700" fill="#f0f6fc">Total</text>
+    <text x="560" y="292" text-anchor="middle" fill="#f0f6fc">prices (ref)</text>
+    <text x="560" y="310" text-anchor="middle" fill="#f0f6fc">sum = 12.10</text>
+    <text x="560" y="328" text-anchor="middle" fill="#f0f6fc">p = 10.00</text>
+    <rect x="500" y="150" width="120" height="90" rx="6" fill="#512BD4" stroke="#7a5cf0"/>
+    <text x="560" y="172" text-anchor="middle" font-weight="700" fill="#f0f6fc">ApplyTax</text>
+    <text x="560" y="192" text-anchor="middle" fill="#f0f6fc">a = 10.00</text>
+    <text x="560" y="210" text-anchor="middle" fill="#f0f6fc">r = 0.21</text>
+    <text x="560" y="228" text-anchor="middle" fill="#8b949e">return 12.10</text>
+    <text x="560" y="130" text-anchor="middle" fill="#8b949e">↑ tope del stack</text>
+  </g>
+  <!-- instante 3 -->
+  <g font-size="12">
+    <text x="710" y="70" text-anchor="middle" font-weight="700" fill="#8b949e">3 · tras dos return</text>
+    <rect x="650" y="360" width="120" height="50" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="710" y="382" text-anchor="middle" fill="#f0f6fc">Main</text>
+    <text x="710" y="398" text-anchor="middle" fill="#8b949e">total = 12.10</text>
+    <rect x="650" y="250" width="120" height="100" rx="6" fill="none" stroke="#30363d" stroke-dasharray="4 4"/>
+    <rect x="650" y="150" width="120" height="90" rx="6" fill="none" stroke="#30363d" stroke-dasharray="4 4"/>
+    <text x="710" y="300" text-anchor="middle" fill="#484f58">liberado</text>
+    <text x="710" y="200" text-anchor="middle" fill="#484f58">liberado</text>
+  </g>
+  <line x1="475" y1="385" x2="495" y2="385" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="625" y1="385" x2="645" y2="385" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="560" y="440" text-anchor="middle" font-size="12" fill="#8b949e">El stack crece hacia arriba en el diagrama; el valor devuelto viaja al frame del llamador</text>
+</svg>

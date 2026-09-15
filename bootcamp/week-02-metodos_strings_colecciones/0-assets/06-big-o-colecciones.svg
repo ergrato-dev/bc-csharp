@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Complejidad Big-O de las colecciones</title>
+  <desc id="desc">Tabla comparativa de operaciones por colección. Filas: T[] array, List, Dictionary, HashSet, Queue y Stack, SortedDictionary. Columnas: acceso por índice, buscar por valor o clave, añadir al final, insertar o borrar al inicio, y orden garantizado. Los valores usan colores: verde para O(1), amarillo para O(log n), rojo para O(n), gris para no aplica. Debajo, una guía rápida: Contains en List dentro de un bucle es O(n²), cambiar a HashSet; Insert(0) repetido en List, cambiar a Queue o LinkedList.</desc>
+  <rect width="800" height="420" rx="12" fill="#0d1117"/>
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Elige la colección por la operación dominante</text>
+
+  <g font-size="12" font-weight="700" fill="#8b949e">
+    <text x="40" y="70">Colección</text>
+    <text x="230" y="70" text-anchor="middle">Índice [i]</text>
+    <text x="345" y="70" text-anchor="middle">Buscar valor/clave</text>
+    <text x="470" y="70" text-anchor="middle">Añadir al final</text>
+    <text x="590" y="70" text-anchor="middle">Insertar/borrar inicio</text>
+    <text x="715" y="70" text-anchor="middle">Orden</text>
+  </g>
+  <line x1="30" y1="80" x2="770" y2="80" stroke="#30363d"/>
+
+  <g font-size="12">
+    <!-- T[] -->
+    <rect x="30" y="88" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="113" font-family="ui-monospace,monospace" fill="#f0f6fc">T[]</text>
+    <text x="230" y="113" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="345" y="113" text-anchor="middle" fill="#f85149">O(n)</text>
+    <text x="470" y="113" text-anchor="middle" fill="#484f58">tamaño fijo</text>
+    <text x="590" y="113" text-anchor="middle" fill="#484f58">tamaño fijo</text>
+    <text x="715" y="113" text-anchor="middle" fill="#8b949e">inserción</text>
+    <!-- List -->
+    <rect x="30" y="134" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="159" font-family="ui-monospace,monospace" fill="#f0f6fc">List&lt;T&gt;</text>
+    <text x="230" y="159" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="345" y="159" text-anchor="middle" fill="#f85149">O(n)</text>
+    <text x="470" y="159" text-anchor="middle" fill="#3fb950">O(1)*</text>
+    <text x="590" y="159" text-anchor="middle" fill="#f85149">O(n)</text>
+    <text x="715" y="159" text-anchor="middle" fill="#8b949e">inserción</text>
+    <!-- Dictionary -->
+    <rect x="30" y="180" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="205" font-family="ui-monospace,monospace" fill="#f0f6fc">Dictionary&lt;K,V&gt;</text>
+    <text x="230" y="205" text-anchor="middle" fill="#484f58">por clave</text>
+    <text x="345" y="205" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="470" y="205" text-anchor="middle" fill="#3fb950">O(1)*</text>
+    <text x="590" y="205" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="715" y="205" text-anchor="middle" fill="#f85149">ninguno</text>
+    <!-- HashSet -->
+    <rect x="30" y="226" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="251" font-family="ui-monospace,monospace" fill="#f0f6fc">HashSet&lt;T&gt;</text>
+    <text x="230" y="251" text-anchor="middle" fill="#484f58">—</text>
+    <text x="345" y="251" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="470" y="251" text-anchor="middle" fill="#3fb950">O(1)*</text>
+    <text x="590" y="251" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="715" y="251" text-anchor="middle" fill="#f85149">ninguno</text>
+    <!-- Queue / Stack -->
+    <rect x="30" y="272" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="297" font-family="ui-monospace,monospace" fill="#f0f6fc">Queue&lt;T&gt; · Stack&lt;T&gt;</text>
+    <text x="230" y="297" text-anchor="middle" fill="#484f58">—</text>
+    <text x="345" y="297" text-anchor="middle" fill="#f85149">O(n)</text>
+    <text x="470" y="297" text-anchor="middle" fill="#3fb950">O(1)*</text>
+    <text x="590" y="297" text-anchor="middle" fill="#3fb950">O(1)</text>
+    <text x="715" y="297" text-anchor="middle" fill="#8b949e">FIFO · LIFO</text>
+    <!-- Sorted -->
+    <rect x="30" y="318" width="740" height="40" rx="6" fill="#161b22"/>
+    <text x="40" y="343" font-family="ui-monospace,monospace" fill="#f0f6fc">SortedDictionary / SortedSet</text>
+    <text x="230" y="343" text-anchor="middle" fill="#484f58">—</text>
+    <text x="345" y="343" text-anchor="middle" fill="#d29922">O(log n)</text>
+    <text x="470" y="343" text-anchor="middle" fill="#d29922">O(log n)</text>
+    <text x="590" y="343" text-anchor="middle" fill="#d29922">O(log n)</text>
+    <text x="715" y="343" text-anchor="middle" fill="#3fb950">por clave</text>
+  </g>
+
+  <text x="40" y="380" font-size="12" fill="#8b949e">* amortizado: O(n) cuando el array interno se duplica.</text>
+  <text x="40" y="400" font-size="12" fill="#d29922">Olores: List.Contains dentro de un bucle = O(n²) → HashSet · Insert(0)/RemoveAt(0) repetido = O(n) cada vez → Queue&lt;T&gt;</text>
+</svg>

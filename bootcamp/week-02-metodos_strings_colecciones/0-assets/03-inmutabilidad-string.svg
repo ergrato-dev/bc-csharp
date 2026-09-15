@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Inmutabilidad: cada operación crea un string nuevo</title>
+  <desc id="desc">Arriba, una concatenación en bucle: s igual a s más x crea un objeto string nuevo en el heap en cada iteración; los anteriores quedan como basura para el GC. Se muestran cuatro objetos: "a", "ab", "abc", "abcd", con los tres primeros marcados como basura. Abajo, StringBuilder: un único buffer de chars que crece por duplicación y solo produce un string al llamar ToString. Se compara el número de asignaciones: N strings frente a unos pocos chunks más uno.</desc>
+  <rect width="800" height="440" rx="12" fill="#0d1117"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">string es inmutable: "modificar" es crear otro</text>
+
+  <!-- concatenación -->
+  <rect x="30" y="56" width="740" height="170" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="46" y="80" font-size="13" font-weight="700" fill="#f85149">s += c   en un bucle de 4 iteraciones</text>
+  <text x="46" y="100" font-family="ui-monospace,monospace" font-size="12" fill="#8b949e">string s = ""; foreach (char c in "abcd") s += c;</text>
+  <g font-size="12" font-family="ui-monospace,monospace">
+    <rect x="60" y="120" width="110" height="44" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="115" y="140" text-anchor="middle" fill="#f0f6fc">"a"</text>
+    <text x="115" y="156" text-anchor="middle" fill="#484f58">basura</text>
+    <rect x="230" y="120" width="110" height="44" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="285" y="140" text-anchor="middle" fill="#f0f6fc">"ab"</text>
+    <text x="285" y="156" text-anchor="middle" fill="#484f58">basura</text>
+    <rect x="400" y="120" width="110" height="44" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <text x="455" y="140" text-anchor="middle" fill="#f0f6fc">"abc"</text>
+    <text x="455" y="156" text-anchor="middle" fill="#484f58">basura</text>
+    <rect x="570" y="120" width="110" height="44" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="625" y="140" text-anchor="middle" fill="#f0f6fc">"abcd"</text>
+    <text x="625" y="156" text-anchor="middle" fill="#3fb950">s apunta aquí</text>
+    <line x1="172" y1="142" x2="226" y2="142" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="342" y1="142" x2="396" y2="142" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="512" y1="142" x2="566" y2="142" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+  <text x="46" y="190" font-size="12" fill="#8b949e">Cada += copia el contenido anterior + el nuevo: N asignaciones y O(N²) bytes copiados.</text>
+  <text x="46" y="210" font-size="12" fill="#8b949e">Con 4 chars da igual; con 100 000 líneas de un informe, no.</text>
+
+  <!-- StringBuilder -->
+  <rect x="30" y="246" width="740" height="150" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="46" y="270" font-size="13" font-weight="700" fill="#3fb950">StringBuilder: un buffer mutable</text>
+  <text x="46" y="290" font-family="ui-monospace,monospace" font-size="12" fill="#8b949e">var sb = new StringBuilder(); foreach (char c in "abcd") sb.Append(c); string s = sb.ToString();</text>
+  <g font-family="ui-monospace,monospace" font-size="12">
+    <rect x="60" y="310" width="360" height="44" rx="6" fill="#21262d" stroke="#6e7681"/>
+    <rect x="66" y="316" width="40" height="32" fill="#512BD4"/><text x="86" y="337" text-anchor="middle" fill="#f0f6fc">a</text>
+    <rect x="110" y="316" width="40" height="32" fill="#512BD4"/><text x="130" y="337" text-anchor="middle" fill="#f0f6fc">b</text>
+    <rect x="154" y="316" width="40" height="32" fill="#512BD4"/><text x="174" y="337" text-anchor="middle" fill="#f0f6fc">c</text>
+    <rect x="198" y="316" width="40" height="32" fill="#512BD4"/><text x="218" y="337" text-anchor="middle" fill="#f0f6fc">d</text>
+    <text x="330" y="337" text-anchor="middle" fill="#484f58">capacidad libre</text>
+    <text x="240" y="372" text-anchor="middle" font-family="system-ui,sans-serif" fill="#8b949e">char[] interno: se escribe in-place, crece duplicando</text>
+    <line x1="424" y1="332" x2="500" y2="332" stroke="#7a5cf0" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="462" y="322" text-anchor="middle" font-family="system-ui,sans-serif" fill="#8b949e">ToString()</text>
+    <rect x="506" y="310" width="110" height="44" rx="6" fill="#3f21a6" stroke="#7a5cf0"/>
+    <text x="561" y="337" text-anchor="middle" fill="#f0f6fc">"abcd"</text>
+    <text x="640" y="337" font-family="system-ui,sans-serif" fill="#8b949e">1 string al final</text>
+  </g>
+
+  <text x="400" y="424" text-anchor="middle" font-size="12" fill="#8b949e">Regla: ≤ 4 piezas conocidas → interpolación o Concat · bucle o piezas desconocidas → StringBuilder o string.Join</text>
+</svg>
