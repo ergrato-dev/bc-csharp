@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="440" viewBox="0 0 840 440" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Igualdad por referencia frente a igualdad por valor</title>
+  <desc id="d">Arriba a la izquierda, dos instancias de una clase normal con los mismos datos: el operador igual compara referencias y devuelve falso. Arriba a la derecha, dos instancias de un record con los mismos datos: el operador igual compara el contrato de igualdad y después cada campo, y devuelve verdadero. En el centro, la lista de miembros que genera el compilador para un record posicional: propiedades init, constructor, Equals tipado, Equals de object, GetHashCode, operadores igual y distinto, ToString con PrintMembers, Deconstruct y constructor de copia. Abajo, la expresión with, que llama al constructor de copia y aplica los cambios: es una copia superficial, por lo que una lista interna se comparte entre el original y la copia. También se indica que un record derivado nunca es igual a uno de la clase base porque el contrato de igualdad compara los tipos reales.</desc>
+  <rect width="840" height="440" rx="12" fill="#0d1117"/>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">a == b con los mismos datos: depende de qué declaraste</text>
+
+  <rect x="24" y="52" width="388" height="120" rx="10" fill="#161b22" stroke="#f85149"/>
+  <text x="44" y="76" font-size="13" font-weight="700" fill="#f85149">class Booking</text>
+  <text x="44" y="100" font-family="ui-monospace,monospace" font-size="11.5" fill="#c9d1d9">new Booking("H-1", 3) == new Booking("H-1", 3)</text>
+  <text x="44" y="126" font-size="12" fill="#f85149">False — compara REFERENCIAS</text>
+  <text x="44" y="150" font-size="11.5" fill="#8b949e">Para igualdad por valor: ~60 líneas a mano (semana 04).</text>
+
+  <rect x="428" y="52" width="388" height="120" rx="10" fill="#161b22" stroke="#3fb950"/>
+  <text x="448" y="76" font-size="13" font-weight="700" fill="#3fb950">record Booking(string Code, int Nights)</text>
+  <text x="448" y="100" font-family="ui-monospace,monospace" font-size="11.5" fill="#c9d1d9">new Booking("H-1", 3) == new Booking("H-1", 3)</text>
+  <text x="448" y="126" font-size="12" fill="#3fb950">True — compara EqualityContract y cada campo</text>
+  <text x="448" y="150" font-size="11.5" fill="#8b949e">Una línea de código.</text>
+
+  <rect x="24" y="188" width="500" height="172" rx="10" fill="#161b22" stroke="#7a5cf0"/>
+  <text x="44" y="212" font-size="13" font-weight="700" fill="#7a5cf0">Lo que genera el compilador</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#c9d1d9">
+    <text x="44" y="236">propiedades { get; init; } por parámetro</text>
+    <text x="44" y="256">constructor posicional</text>
+    <text x="44" y="276">Equals(Booking?) · Equals(object?) · GetHashCode()</text>
+    <text x="44" y="296">operator == · operator !=</text>
+    <text x="44" y="316">ToString() + protected PrintMembers()</text>
+    <text x="44" y="336">Deconstruct(out ...) · protected Booking(Booking)</text>
+  </g>
+  <text x="44" y="352" font-size="10.5" fill="#484f58">EqualityContract: propiedad protegida que devuelve el Type real</text>
+
+  <rect x="540" y="188" width="276" height="172" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="560" y="212" font-size="13" font-weight="700" fill="#d29922">with = copia SUPERFICIAL</text>
+  <text x="560" y="238" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">var b = a with { Nights = 5 };</text>
+  <text x="560" y="262" font-size="11.5" fill="#8b949e">Llama al constructor de copia</text>
+  <text x="560" y="280" font-size="11.5" fill="#8b949e">y aplica los cambios.</text>
+  <text x="560" y="306" font-size="11.5" fill="#f85149">Una List&lt;T&gt; interna se COMPARTE</text>
+  <text x="560" y="324" font-size="11.5" fill="#f85149">entre el original y la copia.</text>
+  <text x="560" y="348" font-size="11" fill="#484f58">Anidados: colecciones inmutables.</text>
+
+  <rect x="24" y="376" width="792" height="48" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="404" font-size="12" fill="#8b949e">Con herencia: <tspan font-family="ui-monospace,monospace" fill="#c9d1d9">new Vehicle("1234-AB") == new Car("1234-AB")</tspan> es <tspan fill="#f85149">False</tspan> — EqualityContract compara los tipos REALES antes que los campos.</text>
+</svg>

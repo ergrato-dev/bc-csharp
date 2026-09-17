@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="420" viewBox="0 0 840 420" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Una plantilla genérica, varias instanciaciones: qué hace el JIT</title>
+  <desc id="d">A la izquierda, el tipo abierto List de T, que es una plantilla sin código nativo propio. A la derecha, tres tipos cerrados. List de int y List de double son argumentos de tipo por valor y el JIT genera código nativo especializado para cada uno, sin boxing y con los elementos almacenados inline. List de string y List de Booking son argumentos de tipo por referencia y comparten un único código nativo, al que se le pasa el descriptor del tipo. Abajo, tres consecuencias: cero boxing con tipos por valor frente a la ArrayList antigua; cada tipo cerrado tiene sus propios campos estáticos y su propio constructor estático, lo que permite cachés por tipo; y en .NET no hay borrado de tipos, por lo que typeof de List de int existe en tiempo de ejecución y la reflexión ve el argumento de tipo.</desc>
+  <rect width="840" height="420" rx="12" fill="#0d1117"/>
+  <defs><marker id="g1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Tipo abierto, tipos cerrados y código nativo</text>
+
+  <rect x="24" y="66" width="200" height="180" rx="10" fill="#3f21a6" stroke="#7a5cf0"/>
+  <text x="124" y="96" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#f0f6fc">List&lt;T&gt;</text>
+  <text x="124" y="122" text-anchor="middle" font-size="11.5" fill="#c9d1d9">tipo ABIERTO</text>
+  <text x="124" y="146" text-anchor="middle" font-size="11" fill="#8b949e">una plantilla:</text>
+  <text x="124" y="164" text-anchor="middle" font-size="11" fill="#8b949e">no existe como tipo</text>
+  <text x="124" y="182" text-anchor="middle" font-size="11" fill="#8b949e">ejecutable</text>
+  <text x="124" y="214" text-anchor="middle" font-size="11" fill="#484f58">IL con parámetros</text>
+  <text x="124" y="230" text-anchor="middle" font-size="11" fill="#484f58">de tipo</text>
+
+  <line x1="230" y1="116" x2="286" y2="102" stroke="#7a5cf0" stroke-width="2" marker-end="url(#g1)"/>
+  <line x1="230" y1="156" x2="286" y2="170" stroke="#7a5cf0" stroke-width="2" marker-end="url(#g1)"/>
+  <line x1="230" y1="196" x2="286" y2="238" stroke="#7a5cf0" stroke-width="2" marker-end="url(#g1)"/>
+
+  <rect x="292" y="66" width="250" height="74" rx="8" fill="#161b22" stroke="#3fb950"/>
+  <text x="312" y="90" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">List&lt;int&gt;</text>
+  <text x="312" y="110" font-size="11" fill="#3fb950">código nativo PROPIO</text>
+  <text x="312" y="128" font-size="11" fill="#8b949e">elementos inline · sin boxing</text>
+
+  <rect x="292" y="152" width="250" height="74" rx="8" fill="#161b22" stroke="#3fb950"/>
+  <text x="312" y="176" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">List&lt;double&gt;</text>
+  <text x="312" y="196" font-size="11" fill="#3fb950">código nativo PROPIO</text>
+  <text x="312" y="214" font-size="11" fill="#8b949e">especializado por tipo por valor</text>
+
+  <rect x="292" y="238" width="250" height="96" rx="8" fill="#161b22" stroke="#58a6ff"/>
+  <text x="312" y="262" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">List&lt;string&gt; · List&lt;Booking&gt;</text>
+  <text x="312" y="282" font-size="11" fill="#58a6ff">COMPARTEN un solo código nativo</text>
+  <text x="312" y="302" font-size="11" fill="#8b949e">todas las referencias ocupan lo mismo;</text>
+  <text x="312" y="320" font-size="11" fill="#8b949e">se pasa el descriptor del tipo</text>
+
+  <rect x="560" y="66" width="256" height="268" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="580" y="90" font-size="13" font-weight="700" fill="#d29922">Consecuencias</text>
+  <text x="580" y="116" font-size="11.5" fill="#8b949e">· Cero boxing con tipos por valor:</text>
+  <text x="580" y="134" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">  List&lt;int&gt;</text><text x="660" y="134" font-size="11" fill="#8b949e">no asigna por elemento;</text>
+  <text x="580" y="152" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">  ArrayList</text><text x="660" y="152" font-size="11" fill="#8b949e">boxea cada uno.</text>
+  <text x="580" y="184" font-size="11.5" fill="#8b949e">· Cada tipo cerrado tiene SUS campos</text>
+  <text x="580" y="202" font-size="11.5" fill="#8b949e">  estáticos y su propio .cctor:</text>
+  <text x="580" y="222" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">  Cache&lt;T&gt;.Value</text><text x="694" y="222" font-size="11" fill="#8b949e">por tipo.</text>
+  <text x="580" y="254" font-size="11.5" fill="#8b949e">· En .NET no hay borrado de tipos:</text>
+  <text x="580" y="272" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">  typeof(List&lt;int&gt;)</text><text x="716" y="272" font-size="11" fill="#8b949e">existe</text>
+  <text x="580" y="290" font-size="11.5" fill="#8b949e">  y la reflexión ve el argumento.</text>
+  <text x="580" y="318" font-size="11" fill="#484f58">Precio: más código nativo por instanciación.</text>
+
+  <text x="420" y="366" text-anchor="middle" font-size="12" fill="#8b949e">Sin restricciones, T solo ofrece lo de object. Cada `where` es un permiso más (archivo 05) y el que permite evitar el boxing al llamar a una interfaz.</text>
+  <text x="420" y="392" text-anchor="middle" font-size="12" fill="#484f58">La inferencia sale de los ARGUMENTOS del método, nunca del tipo de retorno.</text>
+</svg>

@@ -8,7 +8,14 @@
 
 Al finalizar esta semana, el estudiante será capaz de:
 
-- <!-- TODO: objetivos medibles derivados de los temas de teoría -->
+- Predecir qué copia una asignación según sea `struct` o `class`, y aplicar los cuatro criterios para elegir entre ambos
+- Identificar dónde ocurre boxing y eliminarlo con genéricos y `readonly struct`
+- Modelar datos con `record`, `record struct` y `readonly record struct`, sabiendo qué genera el compilador y qué copia `with`
+- Explicar la igualdad de records con herencia (`EqualityContract`) y validar records con factorías
+- Declarar enums seguros (miembro 0, validación con `TryParse` + `IsDefined`, serialización como texto) y conjuntos con `[Flags]`
+- Escribir tipos y métodos genéricos con nombres e inferencia correctos, y explicar qué genera el JIT por instanciación
+- Elegir la restricción `where` mínima necesaria, incluida `INumber<T>` para código numérico genérico
+- Anotar interfaces y delegados con `in`/`out` y justificar por qué `List<T>` es invariante
 
 ## 📚 Requisitos previos
 
@@ -33,23 +40,23 @@ week-05-structs_records_enums_genericos/
 
 | Archivo | Tema | Duración |
 |---------|------|:--------:|
-| [01-structs.md](1-teoria/01-structs.md) | Structs | 30 min |
-| [02-records.md](1-teoria/02-records.md) | Records | 30 min |
-| [03-enums-y-flags.md](1-teoria/03-enums-y-flags.md) | Enums y flags | 30 min |
-| [04-genericos.md](1-teoria/04-genericos.md) | Genericos | 30 min |
-| [05-restricciones-genericas.md](1-teoria/05-restricciones-genericas.md) | Restricciones genericas | 30 min |
-| [06-varianza-in-out.md](1-teoria/06-varianza-in-out.md) | Varianza in out | 30 min |
+| [01-structs.md](1-teoria/01-structs.md) | Tipos por valor, `readonly struct`, boxing, `default`, criterios de elección | 30 min |
+| [02-records.md](1-teoria/02-records.md) | Miembros generados, `record struct`, `with`, `EqualityContract`, validación | 30 min |
+| [03-enums-y-flags.md](1-teoria/03-enums-y-flags.md) | Tipo subyacente, validación en el borde, `switch` exhaustivo, `[Flags]`, serialización | 30 min |
+| [04-genericos.md](1-teoria/04-genericos.md) | Tipos y métodos genéricos, inferencia, `default(T)`, estáticos por instanciación, JIT | 30 min |
+| [05-restricciones-genericas.md](1-teoria/05-restricciones-genericas.md) | Catálogo de `where`, `T?` según restricción, `static abstract`, `INumber<T>` | 30 min |
+| [06-varianza-in-out.md](1-teoria/06-varianza-in-out.md) | Covarianza, contravarianza, invarianza, arrays covariantes y límites | 30 min |
 
 ### Prácticas
 
 | Ejercicio | Concepto | Duración |
 |-----------|----------|:--------:|
-| [ejercicio-01-records-dominio](2-practicas/ejercicio-01-records-dominio/README.md) | Records dominio | 90 min |
-| [ejercicio-02-result-generico](2-practicas/ejercicio-02-result-generico/README.md) | Result generico | 90 min |
+| [ejercicio-01-records-dominio](2-practicas/ejercicio-01-records-dominio/README.md) | `record` posicional, `with` superficial, identificadores tipados, validación, `enum` validado, `[Flags]`, herencia de records | 90 min |
+| [ejercicio-02-result-generico](2-practicas/ejercicio-02-result-generico/README.md) | `Result<T,E>` con `Match`/`Map`, repositorio con restricciones, `INumber<T>`, `EqualityComparer<T>.Default`, varianza `in`/`out` | 90 min |
 
 ### Proyecto
 
-[3-proyecto/README.md](3-proyecto/README.md) — Librería genérica `Result<T,E>` + dominio modelado con records y enums.
+[3-proyecto/README.md](3-proyecto/README.md) — Librería genérica (`Result<T,E>` con `Match`/`Map`/`Then` y repositorio con restricciones) sin una sola referencia al dominio, más el modelo del alumno con identificadores tipados, value object, `record` validado por factoría, `enum` y `[Flags]`.
 
 ## ⏱️ Distribución del tiempo (10 horas)
 
