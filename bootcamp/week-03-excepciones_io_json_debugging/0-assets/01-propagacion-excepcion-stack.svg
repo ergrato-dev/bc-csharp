@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="470" viewBox="0 0 820 470" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Propagación de una excepción por la pila de llamadas</title>
+  <desc id="desc">Pila con cuatro frames: Main llama a Import, que llama a ParseLine, que llama a Divide, donde se lanza una DivideByZeroException. La primera pasada recorre la pila hacia arriba buscando un catch compatible y evaluando los filtros when sin desenrollar: ParseLine no tiene catch, Import tiene un catch de FormatException que no encaja, Main tiene un catch de Exception que sí encaja. La segunda pasada desenrolla los frames ejecutando cada bloque finally hasta llegar al catch de Main. Si ningún frame encajara, el proceso terminaría con excepción no controlada.</desc>
+  <rect width="820" height="470" rx="12" fill="#0d1117"/>
+  <defs>
+    <marker id="up" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#f85149"/></marker>
+    <marker id="down" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#d29922"/></marker>
+  </defs>
+  <text x="410" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">throw: dos pasadas sobre la pila de llamadas</text>
+
+  <g font-size="13">
+    <rect x="180" y="58" width="300" height="66" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="196" y="80" font-weight="700" fill="#f0f6fc">Main()</text>
+    <text x="196" y="100" font-family="ui-monospace,monospace" font-size="12" fill="#3fb950">catch (Exception ex)</text>
+    <text x="196" y="116" font-size="11" fill="#8b949e">✔ encaja: aquí se detiene la búsqueda</text>
+
+    <rect x="180" y="146" width="300" height="66" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="196" y="168" font-weight="700" fill="#f0f6fc">Import(file)</text>
+    <text x="196" y="188" font-family="ui-monospace,monospace" font-size="12" fill="#d29922">catch (FormatException)</text>
+    <text x="196" y="204" font-size="11" fill="#8b949e">✘ no encaja · su finally SÍ se ejecutará</text>
+
+    <rect x="180" y="234" width="300" height="60" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="196" y="256" font-weight="700" fill="#f0f6fc">ParseLine(line)</text>
+    <text x="196" y="276" font-size="11" fill="#8b949e">sin catch · el frame se descarta en la 2ª pasada</text>
+
+    <rect x="180" y="316" width="300" height="70" rx="8" fill="#3f21a6" stroke="#f85149" stroke-width="2"/>
+    <text x="196" y="338" font-weight="700" fill="#f0f6fc">Divide(a, b)</text>
+    <text x="196" y="358" font-family="ui-monospace,monospace" font-size="12" fill="#f85149">throw new DivideByZeroException()</text>
+    <text x="196" y="376" font-size="11" fill="#8b949e">punto de lanzamiento: aquí para el depurador</text>
+  </g>
+
+  <!-- pasada 1 -->
+  <line x1="150" y1="350" x2="150" y2="96" stroke="#f85149" stroke-width="2" marker-end="url(#up)"/>
+  <text x="140" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="#f85149" transform="rotate(-90 140 230)">1ª pasada: buscar catch + evaluar when</text>
+
+  <!-- pasada 2 -->
+  <line x1="510" y1="110" x2="510" y2="360" stroke="#d29922" stroke-width="2" marker-end="url(#down)"/>
+  <text x="522" y="235" font-size="12" font-weight="700" fill="#d29922" transform="rotate(90 522 235)">2ª pasada: desenrollar y ejecutar finally</text>
+
+  <rect x="560" y="58" width="236" height="150" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="576" y="80" font-size="13" font-weight="700" fill="#7a5cf0">Por qué importa</text>
+  <text x="576" y="104" font-size="11" fill="#8b949e">El filtro when se evalúa en la 1ª pasada:</text>
+  <text x="576" y="122" font-size="11" fill="#8b949e">la pila sigue viva y ves los locales</text>
+  <text x="576" y="140" font-size="11" fill="#8b949e">del frame que lanzó.</text>
+  <text x="576" y="166" font-size="11" fill="#8b949e">catch + if + throw; desenrolla primero:</text>
+  <text x="576" y="184" font-size="11" fill="#8b949e">ese estado ya se perdió.</text>
+
+  <rect x="560" y="228" width="236" height="158" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="576" y="250" font-size="13" font-weight="700" fill="#58a6ff">Qué lleva el objeto</text>
+  <text x="576" y="274" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">Message</text><text x="660" y="274" font-size="11" fill="#8b949e">texto para el humano</text>
+  <text x="576" y="296" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">StackTrace</text><text x="672" y="296" font-size="11" fill="#8b949e">dónde se lanzó</text>
+  <text x="576" y="318" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">InnerException</text><text x="576" y="334" font-size="11" fill="#8b949e">la causa, si se envolvió</text>
+  <text x="576" y="356" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">Data</text><text x="628" y="356" font-size="11" fill="#8b949e">contexto extra libre</text>
+  <text x="576" y="378" font-size="11" fill="#f85149">throw ex; reescribe StackTrace</text>
+
+  <text x="410" y="424" text-anchor="middle" font-size="12" fill="#8b949e">Si ningún frame tiene un catch compatible: excepción no controlada y el proceso termina con código de salida distinto de 0.</text>
+  <text x="410" y="448" text-anchor="middle" font-size="12" fill="#484f58">Un try sin excepción no cuesta nada: los bloques viven en las EH tables del método, no en el camino de ejecución.</text>
+</svg>

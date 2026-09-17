@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="470" viewBox="0 0 840 470" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,sans-serif">
+  <title id="title">Jerarquía de System.Exception y qué capturar en cada nivel</title>
+  <desc id="desc">Árbol con raíz System.Exception. De ella cuelgan SystemException y las excepciones propias del programador. Bajo SystemException se agrupan tres familias: errores de uso de la API (ArgumentException con ArgumentNullException y ArgumentOutOfRangeException, e InvalidOperationException con ObjectDisposedException), errores de entrada o entorno (FormatException, OverflowException, IOException con FileNotFoundException y DirectoryNotFoundException, UnauthorizedAccessException y JsonException) y bugs o fallos fatales que no deben capturarse (NullReferenceException, IndexOutOfRangeException, OutOfMemoryException y StackOverflowException). Se indica que las de uso de API se corrigen en el código, las de entorno se capturan y se traducen, y las de bug nunca se capturan. Las excepciones propias heredan directamente de Exception, nunca de ApplicationException.</desc>
+  <rect width="840" height="470" rx="12" fill="#0d1117"/>
+  <defs><marker id="a2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6e7681"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">System.Exception: qué capturar y qué no</text>
+
+  <rect x="330" y="50" width="180" height="38" rx="8" fill="#3f21a6" stroke="#7a5cf0" stroke-width="2"/>
+  <text x="420" y="74" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#f0f6fc">Exception</text>
+
+  <line x1="420" y1="88" x2="420" y2="106" stroke="#6e7681" stroke-width="2"/>
+  <line x1="150" y1="106" x2="700" y2="106" stroke="#6e7681" stroke-width="2"/>
+  <line x1="150" y1="106" x2="150" y2="124" stroke="#6e7681" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="420" y1="106" x2="420" y2="124" stroke="#6e7681" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="700" y1="106" x2="700" y2="124" stroke="#6e7681" stroke-width="2" marker-end="url(#a2)"/>
+
+  <!-- columna 1: uso de API -->
+  <rect x="24" y="130" width="252" height="192" rx="10" fill="#161b22" stroke="#d29922"/>
+  <text x="150" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#d29922">Uso incorrecto de tu API</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">
+    <text x="40" y="178">ArgumentException</text>
+    <text x="56" y="198">├ ArgumentNullException</text>
+    <text x="56" y="216">└ ArgumentOutOfRangeException</text>
+    <text x="40" y="240">InvalidOperationException</text>
+    <text x="56" y="258">└ ObjectDisposedException</text>
+    <text x="40" y="280">NotSupportedException</text>
+  </g>
+  <text x="40" y="304" font-size="11" fill="#8b949e">Las lanzas tú en las guard clauses.</text>
+  <text x="40" y="318" font-size="11" fill="#8b949e">No se capturan: se corrige el código.</text>
+
+  <!-- columna 2: entorno -->
+  <rect x="294" y="130" width="252" height="192" rx="10" fill="#161b22" stroke="#3fb950"/>
+  <text x="420" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#3fb950">Entrada y entorno</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">
+    <text x="310" y="178">IOException</text>
+    <text x="326" y="196">├ FileNotFoundException</text>
+    <text x="326" y="214">└ DirectoryNotFoundException</text>
+    <text x="310" y="238">UnauthorizedAccessException</text>
+    <text x="310" y="260">FormatException · OverflowException</text>
+    <text x="310" y="282">JsonException</text>
+  </g>
+  <text x="310" y="304" font-size="11" fill="#8b949e">Esperables. Se capturan, se traducen</text>
+  <text x="310" y="318" font-size="11" fill="#8b949e">a error de dominio y se registran.</text>
+
+  <!-- columna 3: bugs -->
+  <rect x="564" y="130" width="252" height="192" rx="10" fill="#161b22" stroke="#f85149"/>
+  <text x="690" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#f85149">Bugs y fallos fatales</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">
+    <text x="580" y="178">NullReferenceException</text>
+    <text x="580" y="200">IndexOutOfRangeException</text>
+    <text x="580" y="222">KeyNotFoundException</text>
+    <text x="580" y="248">OutOfMemoryException</text>
+    <text x="580" y="270">StackOverflowException</text>
+  </g>
+  <text x="580" y="292" font-size="11" fill="#8b949e">Nunca se capturan ni se lanzan.</text>
+  <text x="580" y="306" font-size="11" fill="#8b949e">StackOverflow ni siquiera se puede:</text>
+  <text x="580" y="320" font-size="11" fill="#8b949e">el proceso muere.</text>
+
+  <!-- propias -->
+  <rect x="180" y="348" width="480" height="76" rx="10" fill="#161b22" stroke="#7a5cf0"/>
+  <text x="420" y="370" text-anchor="middle" font-size="13" font-weight="700" fill="#7a5cf0">Tus excepciones de dominio</text>
+  <text x="420" y="392" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">sealed class CatalogFormatException : Exception</text>
+  <text x="420" y="412" text-anchor="middle" font-size="11" fill="#8b949e">Heredan de Exception (nunca de ApplicationException) · nombre terminado en Exception · ctor con innerException</text>
+
+  <text x="420" y="452" text-anchor="middle" font-size="12" fill="#484f58">Crea un tipo propio solo si alguien va a escribir catch de ese tipo o necesita sus datos estructurados.</text>
+</svg>

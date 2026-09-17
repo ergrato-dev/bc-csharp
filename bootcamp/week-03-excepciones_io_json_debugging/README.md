@@ -8,7 +8,14 @@
 
 Al finalizar esta semana, el estudiante será capaz de:
 
-- <!-- TODO: objetivos medibles derivados de los temas de teoría -->
+- Elegir entre lanzar una excepción y devolver `false` con el patrón `TryXxx` según si el fallo es excepcional o esperado
+- Escribir `catch` ordenados de específico a general, con filtros `when` que distingan casos del mismo tipo, y explicar las dos pasadas del runtime
+- Conservar el diagnóstico: `throw;` frente a `throw ex;`, y envolver la causa en `InnerException`
+- Diseñar una jerarquía de excepciones de dominio y validar argumentos con las guard clauses de la BCL
+- Depurar en VS Code con breakpoints condicionales, logpoints, Call Stack y parada en el `throw` original
+- Leer y escribir ficheros con `Path`, `File`, `Directory` y streams, distinguiendo API perezosas de las que materializan todo
+- Guardar sin corromper: fichero temporal + `File.Move` atómico, y capturar `IOException` **y** `UnauthorizedAccessException`
+- Serializar y deserializar con `System.Text.Json` reutilizando `JsonSerializerOptions`, tratando `JsonException` y usando un `JsonSerializerContext` generado
 
 ## 📚 Requisitos previos
 
@@ -33,22 +40,22 @@ week-03-excepciones_io_json_debugging/
 
 | Archivo | Tema | Duración |
 |---------|------|:--------:|
-| [01-excepciones.md](1-teoria/01-excepciones.md) | Excepciones | 30 min |
-| [02-excepciones-personalizadas.md](1-teoria/02-excepciones-personalizadas.md) | Excepciones personalizadas | 30 min |
-| [03-debugging-vscode.md](1-teoria/03-debugging-vscode.md) | Debugging vscode | 30 min |
-| [04-system-io-y-streams.md](1-teoria/04-system-io-y-streams.md) | System io y streams | 30 min |
-| [05-system-text-json.md](1-teoria/05-system-text-json.md) | System text json | 30 min |
+| [01-excepciones.md](1-teoria/01-excepciones.md) | `try`/`catch`/`finally`, filtros `when`, `throw;` vs `throw ex;`, guard clauses, `TryXxx` | 30 min |
+| [02-excepciones-personalizadas.md](1-teoria/02-excepciones-personalizadas.md) | Jerarquía de `Exception`, diseño de excepciones propias, `InnerException`, `AggregateException` | 30 min |
+| [03-debugging-vscode.md](1-teoria/03-debugging-vscode.md) | `launch.json`, breakpoints condicionales y logpoints, Call Stack, parada en el `throw`, `Debug.Assert` | 30 min |
+| [04-system-io-y-streams.md](1-teoria/04-system-io-y-streams.md) | `Path`, `File`, `Directory`, `Stream`/`StreamReader`, lectura perezosa, escritura atómica | 30 min |
+| [05-system-text-json.md](1-teoria/05-system-text-json.md) | `JsonSerializer`, opciones, records y campos ausentes, `JsonException`, source generator | 30 min |
 
 ### Prácticas
 
 | Ejercicio | Concepto | Duración |
 |-----------|----------|:--------:|
-| [ejercicio-01-try-catch-when](2-practicas/ejercicio-01-try-catch-when/README.md) | Try catch when | 90 min |
-| [ejercicio-02-json-persistencia](2-practicas/ejercicio-02-json-persistencia/README.md) | Json persistencia | 90 min |
+| [ejercicio-01-try-catch-when](2-practicas/ejercicio-01-try-catch-when/README.md) | Orden de `catch`, `finally`, `TryParse`, filtros `when`, `throw;` vs `throw ex;`, excepción propia con `InnerException`, guard clauses | 90 min |
+| [ejercicio-02-json-persistencia](2-practicas/ejercicio-02-json-persistencia/README.md) | `Path`/`Directory`, `JsonSerializerOptions` reutilizadas, campos ausentes, `JsonException`, escritura `.tmp` + `File.Move`, streams y source generator | 90 min |
 
 ### Proyecto
 
-[3-proyecto/README.md](3-proyecto/README.md) — Gestor de entidades del dominio persistido en JSON con manejo robusto de errores.
+[3-proyecto/README.md](3-proyecto/README.md) — Gestor del catálogo del dominio persistido en JSON: carga tolerante a fichero ausente o corrupto, guardado atómico, copia de seguridad con marca de tiempo, importación desde texto que reporta cada línea mala, jerarquía de excepciones de dominio con un único `catch` en el menú y evidencia de depuración.
 
 ## ⏱️ Distribución del tiempo (10 horas)
 
