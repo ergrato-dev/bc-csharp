@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="430" viewBox="0 0 840 430" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Del new al objeto listo: orden de inicialización y fin de vida</title>
+  <desc id="d">Secuencia de seis pasos al crear una instancia de una clase derivada. Uno: new reserva memoria y pone todos los campos a cero. Dos: se ejecutan los inicializadores de campo de la clase derivada. Tres: se ejecuta el constructor de la clase base, que repite sus propios inicializadores y cuerpo. Cuatro: se ejecuta el cuerpo del constructor de la derivada, donde ya está todo construido. Cinco: el objeto se usa, y el inicializador de objeto con llaves se aplica después del constructor. Seis: cuando ninguna referencia lo alcanza, el objeto queda recolectable y el recolector de basura lo libera; si tiene recursos externos se libera antes con using. Un aviso destaca que llamar a un método virtual desde el constructor de la base lo ejecuta en la derivada cuando sus campos aún valen cero.</desc>
+  <rect width="840" height="430" rx="12" fill="#0d1117"/>
+  <defs><marker id="m2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">new CheckingAccount("Ada", 500m): qué pasa y en qué orden</text>
+
+  <g font-size="12">
+    <rect x="24" y="56" width="180" height="92" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="78" font-weight="700" fill="#7a5cf0">1 · newobj</text>
+    <text x="40" y="100" fill="#8b949e">Reserva en el heap</text>
+    <text x="40" y="118" fill="#8b949e">y pone TODO a cero</text>
+    <text x="40" y="138" font-size="11" fill="#484f58">0 / null / false</text>
+
+    <rect x="228" y="56" width="180" height="92" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="244" y="78" font-weight="700" fill="#7a5cf0">2 · campos derivada</text>
+    <text x="244" y="100" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">= [] · = "" · = new(...)</text>
+    <text x="244" y="120" fill="#8b949e">Inicializadores de campo</text>
+    <text x="244" y="138" font-size="11" fill="#484f58">antes que la base</text>
+
+    <rect x="432" y="56" width="180" height="92" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="448" y="78" font-weight="700" fill="#7a5cf0">3 · base(...)</text>
+    <text x="448" y="100" fill="#8b949e">Constructor de la base</text>
+    <text x="448" y="118" fill="#8b949e">(repite 2 y 3 hacia arriba</text>
+    <text x="448" y="136" fill="#8b949e">hasta object)</text>
+
+    <rect x="636" y="56" width="180" height="92" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="652" y="78" font-weight="700" fill="#3fb950">4 · cuerpo derivada</text>
+    <text x="652" y="100" fill="#8b949e">Guard clauses y</text>
+    <text x="652" y="118" fill="#8b949e">asignaciones propias</text>
+    <text x="652" y="138" font-size="11" fill="#484f58">aquí ya está todo listo</text>
+
+    <line x1="206" y1="102" x2="224" y2="102" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m2)"/>
+    <line x1="410" y1="102" x2="428" y2="102" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m2)"/>
+    <line x1="614" y1="102" x2="632" y2="102" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m2)"/>
+  </g>
+
+  <g font-size="12">
+    <rect x="24" y="172" width="388" height="100" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="194" font-weight="700" fill="#58a6ff">5 · uso</text>
+    <text x="40" y="216" font-family="ui-monospace,monospace" font-size="11" fill="#f0f6fc">var a = new CheckingAccount(...) { Alias = "principal" };</text>
+    <text x="40" y="238" fill="#8b949e">El inicializador de objeto { } se aplica DESPUÉS del</text>
+    <text x="40" y="256" fill="#8b949e">constructor: no sirve para garantizar invariantes.</text>
+
+    <rect x="436" y="172" width="380" height="100" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="452" y="194" font-weight="700" fill="#d29922">6 · fin de vida</text>
+    <text x="452" y="216" fill="#8b949e">Sin referencias alcanzables → recolectable.</text>
+    <text x="452" y="238" fill="#8b949e">El GC decide cuándo; no hay delete ni destructor</text>
+    <text x="452" y="256" fill="#8b949e">determinista. Recursos externos: IDisposable + using.</text>
+  </g>
+
+  <rect x="24" y="292" width="792" height="82" rx="10" fill="#161b22" stroke="#f85149"/>
+  <text x="44" y="316" font-size="13" font-weight="700" fill="#f85149">⚠ Nunca llames a un método virtual desde el constructor</text>
+  <text x="44" y="338" font-size="12" fill="#8b949e">En el paso 3 el despacho virtual YA apunta a la derivada, pero su cuerpo (paso 4) todavía no se ha ejecutado:</text>
+  <text x="44" y="358" font-size="12" fill="#8b949e">los campos de la derivada siguen a cero. El analizador CA2214 lo señala.</text>
+
+  <text x="420" y="404" text-anchor="middle" font-size="12" fill="#484f58">required y el constructor garantizan el estado válido; el inicializador de objeto solo rellena lo opcional.</text>
+</svg>

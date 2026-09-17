@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Una interfaz es un contrato; varias clases lo cumplen a su manera</title>
+  <desc id="d">En el centro, la interfaz IRoomRepository con tres miembros: Find, All y Save. Abajo, tres implementaciones que cumplen el mismo contrato de formas distintas: en memoria con un diccionario, en JSON sobre fichero y falsa para tests. Arriba, la clase BookingService depende solo de la interfaz, por lo que puede recibir cualquiera de las tres sin cambiar una línea. A la derecha, la comparación entre interfaz y clase abstracta: la interfaz no tiene estado ni constructor, admite implementación múltiple y responde a puede hacer esto; la clase abstracta aporta estado, constructor y esqueleto de algoritmo, solo se hereda una y responde a es un esto. Abajo se recuerda que los miembros por defecto permiten añadir métodos sin romper a quien ya implementa, pero solo se ven a través de la interfaz.</desc>
+  <rect width="840" height="450" rx="12" fill="#0d1117"/>
+  <defs><marker id="m6" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6e7681"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Depender del contrato, no de la implementación</text>
+
+  <rect x="150" y="52" width="360" height="56" rx="8" fill="#21262d" stroke="#58a6ff"/>
+  <text x="330" y="76" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">BookingService(IRoomRepository repo, IClock clock)</text>
+  <text x="330" y="96" text-anchor="middle" font-size="11" fill="#8b949e">no sabe NADA de dónde se guardan las habitaciones</text>
+  <line x1="330" y1="108" x2="330" y2="128" stroke="#6e7681" stroke-width="2" marker-end="url(#m6)"/>
+
+  <rect x="170" y="132" width="320" height="74" rx="8" fill="#3f21a6" stroke="#7a5cf0"/>
+  <text x="330" y="156" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12.5" fill="#f0f6fc">interface IRoomRepository</text>
+  <text x="330" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">Room? Find(string) · IReadOnlyList&lt;Room&gt; All()</text>
+  <text x="330" y="196" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#c9d1d9">void Save(Room)</text>
+
+  <line x1="330" y1="206" x2="330" y2="222" stroke="#6e7681" stroke-width="2"/>
+  <line x1="110" y1="222" x2="550" y2="222" stroke="#6e7681" stroke-width="2"/>
+  <line x1="110" y1="222" x2="110" y2="242" stroke="#6e7681" stroke-width="2" marker-end="url(#m6)"/>
+  <line x1="330" y1="222" x2="330" y2="242" stroke="#6e7681" stroke-width="2" marker-end="url(#m6)"/>
+  <line x1="550" y1="222" x2="550" y2="242" stroke="#6e7681" stroke-width="2" marker-end="url(#m6)"/>
+
+  <rect x="30" y="246" width="160" height="78" rx="8" fill="#161b22" stroke="#3fb950"/>
+  <text x="110" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3fb950">InMemory</text>
+  <text x="110" y="290" text-anchor="middle" font-size="11" fill="#8b949e">Dictionary interno</text>
+  <text x="110" y="310" text-anchor="middle" font-size="11" fill="#484f58">rápido, volátil</text>
+
+  <rect x="250" y="246" width="160" height="78" rx="8" fill="#161b22" stroke="#3fb950"/>
+  <text x="330" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3fb950">JsonFile</text>
+  <text x="330" y="290" text-anchor="middle" font-size="11" fill="#8b949e">catalog.json</text>
+  <text x="330" y="310" text-anchor="middle" font-size="11" fill="#484f58">sobrevive al reinicio</text>
+
+  <rect x="470" y="246" width="160" height="78" rx="8" fill="#161b22" stroke="#3fb950"/>
+  <text x="550" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3fb950">Fake (tests)</text>
+  <text x="550" y="290" text-anchor="middle" font-size="11" fill="#8b949e">datos fijos</text>
+  <text x="550" y="310" text-anchor="middle" font-size="11" fill="#484f58">sin disco ni red</text>
+
+  <rect x="650" y="52" width="166" height="272" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="733" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#d29922">interfaz vs abstracta</text>
+  <text x="666" y="102" font-size="11.5" fill="#c9d1d9">Interfaz</text>
+  <text x="666" y="122" font-size="11" fill="#8b949e">· sin estado ni ctor</text>
+  <text x="666" y="140" font-size="11" fill="#8b949e">· varias a la vez</text>
+  <text x="666" y="158" font-size="11" fill="#8b949e">· "puede hacer esto"</text>
+  <text x="666" y="186" font-size="11.5" fill="#c9d1d9">Clase abstracta</text>
+  <text x="666" y="206" font-size="11" fill="#8b949e">· estado + ctor</text>
+  <text x="666" y="224" font-size="11" fill="#8b949e">· esqueleto del</text>
+  <text x="666" y="242" font-size="11" fill="#8b949e">  algoritmo</text>
+  <text x="666" y="260" font-size="11" fill="#8b949e">· solo UNA</text>
+  <text x="666" y="278" font-size="11" fill="#8b949e">· "es un esto"</text>
+  <text x="666" y="306" font-size="11" fill="#484f58">A menudo: ambas.</text>
+
+  <rect x="24" y="344" width="792" height="88" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="368" font-size="12" fill="#8b949e">Miembros por defecto (DIM): permiten AÑADIR un miembro a una interfaz publicada sin romper a quien ya la implementa.</text>
+  <text x="44" y="390" font-size="12" fill="#8b949e">Solo se ven a través de la interfaz: <tspan font-family="ui-monospace,monospace" fill="#f85149">clase.SendAll(...)</tspan> no compila, <tspan font-family="ui-monospace,monospace" fill="#3fb950">((INotifier)clase).SendAll(...)</tspan> sí.</text>
+  <text x="44" y="414" font-size="12" fill="#484f58">Firmas públicas: acepta la interfaz más general que te sirva y devuelve IReadOnlyList&lt;T&gt; / IEnumerable&lt;T&gt;, nunca List&lt;T&gt;.</text>
+</svg>

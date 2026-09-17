@@ -8,7 +8,14 @@
 
 Al finalizar esta semana, el estudiante será capaz de:
 
-- <!-- TODO: objetivos medibles derivados de los temas de teoría -->
+- Explicar qué guarda una variable de clase, qué copia una asignación y cómo se organiza un objeto en el heap
+- Encapsular estado con propiedades `get`/`set`/`init`, `required` y la palabra clave `field` (C# 14), validando en el constructor
+- Describir el orden exacto de inicialización de una instancia y por qué no se llama a un método `virtual` desde un constructor
+- Elegir entre `const` y `static readonly`, usar `partial` para convivir con código generado y organizar archivos y namespaces
+- Construir jerarquías con `base(...)`, `protected` y `sealed`, y distinguir `override` de `new` por sus efectos observables
+- Aplicar polimorfismo con `abstract`/`virtual`, y redefinir `ToString`, `Equals` y `GetHashCode` respetando su contrato
+- Diseñar interfaces (implícitas, explícitas y con miembros por defecto) e implementar `IEquatable<T>`, `IComparable<T>` e `IDisposable`
+- Refactorizar una jerarquía de variantes en colaboradores inyectados, reconociendo la clase base frágil y las violaciones de Liskov
 
 ## 📚 Requisitos previos
 
@@ -33,24 +40,24 @@ week-04-clases_herencia_interfaces/
 
 | Archivo | Tema | Duración |
 |---------|------|:--------:|
-| [01-clases-y-objetos.md](1-teoria/01-clases-y-objetos.md) | Clases y objetos | 30 min |
-| [02-propiedades-y-constructores.md](1-teoria/02-propiedades-y-constructores.md) | Propiedades y constructores | 30 min |
-| [03-static-partial-y-organizacion.md](1-teoria/03-static-partial-y-organizacion.md) | Static partial y organizacion | 30 min |
-| [04-herencia.md](1-teoria/04-herencia.md) | Herencia | 30 min |
-| [05-polimorfismo-abstract-sealed.md](1-teoria/05-polimorfismo-abstract-sealed.md) | Polimorfismo abstract sealed | 30 min |
-| [06-interfaces.md](1-teoria/06-interfaces.md) | Interfaces | 30 min |
-| [07-composicion-vs-herencia.md](1-teoria/07-composicion-vs-herencia.md) | Composicion vs herencia | 30 min |
+| [01-clases-y-objetos.md](1-teoria/01-clases-y-objetos.md) | Clase vs objeto, tipos por referencia, heap y encabezado, `null`, accesibilidad, `object` | 30 min |
+| [02-propiedades-y-constructores.md](1-teoria/02-propiedades-y-constructores.md) | Propiedades, `init`, `required`, `field` (C# 14), encadenamiento y constructor primario | 30 min |
+| [03-static-partial-y-organizacion.md](1-teoria/03-static-partial-y-organizacion.md) | `static`, `const` vs `static readonly`, `.cctor`, `partial`, `file`, namespaces y `global using` | 30 min |
+| [04-herencia.md](1-teoria/04-herencia.md) | `base(...)`, orden de inicialización, `protected`, upcast/downcast, `new` vs `override` | 30 min |
+| [05-polimorfismo-abstract-sealed.md](1-teoria/05-polimorfismo-abstract-sealed.md) | Despacho dinámico, `abstract`/`virtual`/`sealed`, `Equals`/`GetHashCode`, Template Method | 30 min |
+| [06-interfaces.md](1-teoria/06-interfaces.md) | Implícita vs explícita, miembros por defecto, interfaces de la BCL, programar contra el contrato | 30 min |
+| [07-composicion-vs-herencia.md](1-teoria/07-composicion-vs-herencia.md) | Clase base frágil, explosión de subclases, Liskov, refactor a estrategia y decorador | 30 min |
 
 ### Prácticas
 
 | Ejercicio | Concepto | Duración |
 |-----------|----------|:--------:|
-| [ejercicio-01-cuentas-bancarias](2-practicas/ejercicio-01-cuentas-bancarias/README.md) | Cuentas bancarias | 90 min |
-| [ejercicio-02-figuras-polimorfismo](2-practicas/ejercicio-02-figuras-polimorfismo/README.md) | Figuras polimorfismo | 90 min |
+| [ejercicio-01-cuentas-bancarias](2-practicas/ejercicio-01-cuentas-bancarias/README.md) | `required`/`init`/`field`, clase `abstract`, `base(...)`, `protected set`, polimorfismo, `Equals`/`GetHashCode`, `new` vs `override` | 90 min |
+| [ejercicio-02-figuras-polimorfismo](2-practicas/ejercicio-02-figuras-polimorfismo/README.md) | `abstract`, `IComparable<T>`, miembros por defecto, implementación explícita, estrategia inyectada y decorador | 90 min |
 
 ### Proyecto
 
-[3-proyecto/README.md](3-proyecto/README.md) — Modelo de dominio con jerarquía, interfaces y polimorfismo aplicado al dominio asignado.
+[3-proyecto/README.md](3-proyecto/README.md) — Modelo de dominio del alumno: base abstracta con invariantes, tres derivadas `sealed` con reglas distintas, capacidades opcionales como interfaces (`IReservable` + una propia), repositorio tras contrato, y dos políticas de precio con decorador intercambiables sin tocar el servicio.
 
 ## ⏱️ Distribución del tiempo (10 horas)
 

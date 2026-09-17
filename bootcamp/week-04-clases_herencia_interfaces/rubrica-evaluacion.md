@@ -16,16 +16,16 @@
 
 | # | Pregunta | Puntaje |
 |---|----------|:-------:|
-| 1 | <!-- TODO: pregunta sobre clases-y-objetos --> | 10 |
-| 2 | <!-- TODO: pregunta sobre propiedades-y-constructores --> | 10 |
-| 3 | <!-- TODO: pregunta sobre static-partial-y-organizacion --> | 10 |
-| 4 | <!-- TODO: pregunta sobre herencia --> | 10 |
-| 5 | <!-- TODO: pregunta sobre polimorfismo-abstract-sealed --> | 10 |
-| 6 | <!-- TODO: pregunta sobre interfaces --> | 10 |
-| 7 | <!-- TODO: pregunta sobre composicion-vs-herencia --> | 10 |
-| 8 | <!-- TODO: pregunta sobre clases-y-objetos --> | 10 |
-| 9 | <!-- TODO: pregunta sobre propiedades-y-constructores --> | 10 |
-| 10 | <!-- TODO: pregunta sobre static-partial-y-organizacion --> | 10 |
+| 1 | ¿Qué guarda exactamente una variable de tipo clase? Explica qué imprime `var a = new Box(); var b = a; b.Value = 5;` y por qué. ¿Qué hay en el encabezado de un objeto? | 10 |
+| 2 | Diferencia campo, propiedad autoimplementada y propiedad calculada. ¿Qué aporta `init` frente a `set`, y `required` frente a un constructor con parámetros? | 10 |
+| 3 | ¿Qué hace la palabra clave `field` de C# 14 y qué código ahorra? Escribe una propiedad que recorte espacios al asignarse. | 10 |
+| 4 | Enumera el orden exacto de inicialización al crear una instancia de una clase derivada. ¿Por qué no se debe llamar a un método `virtual` desde el constructor? | 10 |
+| 5 | Diferencia `const` de `static readonly`. ¿Qué problema de versionado tiene `const` en una biblioteca? ¿Qué es `beforefieldinit`? | 10 |
+| 6 | ¿Qué genera el compilador a partir de un constructor primario en una `class`? ¿En qué se diferencia de un `record`? ¿Dónde pones las guard clauses? | 10 |
+| 7 | Explica la diferencia entre `override` y `new` con un ejemplo donde el resultado cambie según el tipo de la variable. ¿Qué warning emite el compilador y qué significa? | 10 |
+| 8 | ¿Cuándo eliges clase abstracta y cuándo interfaz? ¿Qué aporta cada una que la otra no puede? Pon un caso de tu dominio para cada opción. | 10 |
+| 9 | ¿Qué son los miembros de interfaz por defecto, qué problema resuelven y por qué no son visibles desde la clase que implementa la interfaz? | 10 |
+| 10 | Explica el problema de la clase base frágil con un ejemplo. ¿Qué señales delatan una violación de Liskov en un `override`? | 10 |
 
 **Total**: 100 puntos → 30% de la nota final
 
@@ -37,37 +37,44 @@
 
 | Criterio | Puntaje |
 |----------|:-------:|
-| Compila sin errores ni warnings (`TreatWarningsAsErrors`) | |
-| Todas las secciones descomentadas y funcionando | |
-| <!-- TODO: criterio específico del concepto --> | |
+| Compila con `dotnet build -warnaserror` sin warnings | 4 |
+| Los 7 pasos y los 3 bloques de tipos descomentados; la salida coincide con Verificación | 6 |
+| Explica qué protege `protected set` en `Balance` y qué se rompería con `public set` | 3 |
+| Demuestra el efecto de quitar `GetHashCode` sobre el `HashSet` y lo explica | 4 |
+| Explica la diferencia observada entre `Label()` (`override`) y `Tag()` (`new`) | 3 |
 | **Subtotal** | **20** |
 
-### Ejercicio 02 — Figuras polimorfismo (20 puntos)
+### Ejercicio 02 — Figuras y polimorfismo (20 puntos)
 
 | Criterio | Puntaje |
 |----------|:-------:|
-| Compila sin errores ni warnings (`TreatWarningsAsErrors`) | |
-| Todas las secciones descomentadas y funcionando | |
-| <!-- TODO: criterio específico del concepto --> | |
+| Compila con `dotnet build -warnaserror` sin warnings | 4 |
+| Los 7 pasos y los 5 bloques de tipos descomentados; la salida coincide con Verificación | 6 |
+| Añade una política `IPricing` propia sin modificar `Quote` y lo justifica | 4 |
+| Explica por qué `ShortLabel()` necesita el cast a la interfaz | 3 |
+| Responde las 3 preguntas de reflexión con argumentos | 3 |
 | **Subtotal** | **20** |
 
 ---
 
 ## 📦 Producto (30%)
 
-### Proyecto — Modelo de dominio con jerarquía, interfaces y polimorfismo aplicado al dominio asignado
+### Proyecto — Modelo de dominio con jerarquía, interfaces y polimorfismo
 
 | Criterio | Puntaje |
 |----------|:-------:|
-| Implementación coherente con el dominio asignado | 6 |
-| Cumple los requisitos funcionales del README | 8 |
-| Aplica correctamente los conceptos de la semana | 8 |
-| Código en inglés, sin warnings, con nullable habilitado | 4 |
-| README del proyecto con descripción y evidencias | 4 |
+| Base abstracta con guard clauses, miembro abstracto, `virtual Describe()` y `Equals`/`GetHashCode` por clave | 5 |
+| Tres derivadas `sealed` con diferencias reales; al menos dos usan `base.Describe()` | 5 |
+| `IReservable` implementada solo por los tipos que la necesitan + una interfaz de capacidad propia | 4 |
+| Repositorio tras interfaz: `Find` sin excepciones, `All()` como `IReadOnlyList<T>`, nada interno expuesto | 4 |
+| Dos políticas `IPricingPolicy` + decorador, intercambiables sin tocar `CatalogService` | 5 |
+| Listar/agrupar/totalizar resueltos con polimorfismo, sin cadenas de `is TipoConcreto` | 3 |
+| README con diagrama de la jerarquía, tabla por derivada y justificación de dónde va cada interfaz | 4 |
 | **Subtotal** | **30** |
 
 ### Criterios transversales
 
 - ✅ Implementación coherente con el dominio asignado
 - ✅ Sin copia de implementaciones de otros aprendices
+- ✅ `sealed` por defecto, campos privados, sin estado estático mutable
 - ✅ `dotnet build` sin warnings y `dotnet test` en verde (cuando aplique)

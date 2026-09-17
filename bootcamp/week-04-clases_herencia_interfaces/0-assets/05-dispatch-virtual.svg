@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="440" viewBox="0 0 840 440" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Cómo el runtime elige la implementación en una llamada virtual</title>
+  <desc id="d">Arriba, un bucle recorre un array de Shape llamando a Describe. Para cada objeto el runtime lee el puntero de tabla de métodos del encabezado, va al slot correspondiente y salta a la implementación del tipo real: Circle salta a su Area, Square a la suya. La variable es de tipo Shape pero decide el objeto. Abajo, comparación de tres formas de llamada: call, que invoca un método concreto conocido en compilación; callvirt, que consulta la tabla del objeto y además comprueba null; y la llamada por interfaz, que usa un stub de despacho con caché por punto de llamada. Se indica que sellar la clase permite al JIT desvirtualizar, convirtiendo la llamada virtual en directa y a menudo inlinándola. También se advierte de que ocultar con new, en lugar de redefinir con override, hace que mande el tipo de la variable y no el del objeto.</desc>
+  <rect width="840" height="440" rx="12" fill="#0d1117"/>
+  <defs><marker id="m5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Despacho dinámico: la variable es Shape, decide el objeto</text>
+
+  <rect x="24" y="52" width="792" height="188" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="76" font-family="ui-monospace,monospace" font-size="12" fill="#c9d1d9">foreach (Shape s in shapes) Console.WriteLine(s.Describe());</text>
+
+  <rect x="44" y="92" width="150" height="60" rx="7" fill="#21262d" stroke="#6e7681"/>
+  <text x="119" y="116" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">s → Circle</text>
+  <text x="119" y="136" text-anchor="middle" font-size="11" fill="#8b949e">mt ptr → Circle</text>
+
+  <rect x="44" y="164" width="150" height="60" rx="7" fill="#21262d" stroke="#6e7681"/>
+  <text x="119" y="188" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#f0f6fc">s → Square</text>
+  <text x="119" y="208" text-anchor="middle" font-size="11" fill="#8b949e">mt ptr → Square</text>
+
+  <line x1="198" y1="122" x2="248" y2="122" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m5)"/>
+  <line x1="198" y1="194" x2="248" y2="194" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m5)"/>
+
+  <rect x="254" y="92" width="210" height="60" rx="7" fill="#3f21a6" stroke="#7a5cf0"/>
+  <text x="359" y="116" text-anchor="middle" font-size="12" fill="#f0f6fc">tabla de Circle · slot 4</text>
+  <text x="359" y="136" text-anchor="middle" font-size="11" fill="#c9d1d9">Describe heredado de Shape</text>
+
+  <rect x="254" y="164" width="210" height="60" rx="7" fill="#3f21a6" stroke="#7a5cf0"/>
+  <text x="359" y="188" text-anchor="middle" font-size="12" fill="#f0f6fc">tabla de Square · slot 4</text>
+  <text x="359" y="208" text-anchor="middle" font-size="11" fill="#3fb950">override Describe</text>
+
+  <line x1="468" y1="122" x2="518" y2="122" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m5)"/>
+  <line x1="468" y1="194" x2="518" y2="194" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m5)"/>
+
+  <rect x="524" y="92" width="272" height="60" rx="7" fill="#21262d" stroke="#3fb950"/>
+  <text x="660" y="116" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">"Circle de área 3,14"</text>
+  <text x="660" y="136" text-anchor="middle" font-size="11" fill="#8b949e">usa el Area() de Circle</text>
+
+  <rect x="524" y="164" width="272" height="60" rx="7" fill="#21262d" stroke="#3fb950"/>
+  <text x="660" y="188" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">"Cuadrado de lado 2..."</text>
+  <text x="660" y="208" text-anchor="middle" font-size="11" fill="#8b949e">usa su propio Describe</text>
+
+  <rect x="24" y="256" width="258" height="112" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="280" font-size="13" font-weight="700" fill="#58a6ff">call</text>
+  <text x="44" y="302" font-size="11.5" fill="#8b949e">Método concreto, conocido</text>
+  <text x="44" y="320" font-size="11.5" fill="#8b949e">en compilación. Un salto.</text>
+  <text x="44" y="346" font-size="11.5" fill="#484f58">static, no virtual, base.X()</text>
+
+  <rect x="292" y="256" width="258" height="112" rx="10" fill="#161b22" stroke="#7a5cf0"/>
+  <text x="312" y="280" font-size="13" font-weight="700" fill="#7a5cf0">callvirt</text>
+  <text x="312" y="302" font-size="11.5" fill="#8b949e">Lee la tabla del objeto y</text>
+  <text x="312" y="320" font-size="11.5" fill="#8b949e">salta al slot. Comprueba null.</text>
+  <text x="312" y="346" font-size="11.5" fill="#3fb950">sealed → el JIT desvirtualiza</text>
+
+  <rect x="560" y="256" width="256" height="112" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="580" y="280" font-size="13" font-weight="700" fill="#d29922">interfaz</text>
+  <text x="580" y="302" font-size="11.5" fill="#8b949e">Stub de despacho con caché</text>
+  <text x="580" y="320" font-size="11.5" fill="#8b949e">por punto de llamada.</text>
+  <text x="580" y="346" font-size="11.5" fill="#484f58">más caro; también desvirtualizable</text>
+
+  <rect x="24" y="384" width="792" height="42" rx="10" fill="#161b22" stroke="#f85149"/>
+  <text x="44" y="410" font-size="12" fill="#8b949e">⚠ <tspan font-family="ui-monospace,monospace" fill="#f85149">new</tspan> no redefine: oculta. Con ocultamiento manda el tipo de la VARIABLE; con <tspan font-family="ui-monospace,monospace" fill="#3fb950">override</tspan> manda el tipo del OBJETO.</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="420" viewBox="0 0 840 420" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,sans-serif">
+  <title id="t">Qué genera el compilador a partir de un constructor primario</title>
+  <desc id="d">Comparación en dos columnas. A la izquierda, lo que escribe el programador: una clase sellada RoomService con constructor primario que recibe repository y logger, un campo readonly que captura repository y un método que usa logger directamente. A la derecha, lo que emite el compilador: un constructor normal que asigna los parámetros, un campo de respaldo oculto para cada parámetro que se usa fuera del constructor, y el campo readonly declarado por el programador. Debajo, tres notas: un parámetro usado solo dentro del constructor no genera campo, los parámetros primarios de una clase no son propiedades públicas a diferencia de un record, y un constructor primario no tiene cuerpo donde poner guard clauses, así que la validación va en un inicializador de campo o en un constructor normal.</desc>
+  <rect width="840" height="420" rx="12" fill="#0d1117"/>
+  <defs><marker id="m3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7a5cf0"/></marker></defs>
+  <text x="420" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#f0f6fc">Constructor primario: qué escribes y qué se emite</text>
+
+  <rect x="24" y="52" width="380" height="228" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="76" font-size="13" font-weight="700" fill="#3fb950">Lo que escribes</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">
+    <text x="44" y="102">public sealed class RoomService(</text>
+    <text x="60" y="120">IRoomRepository repository,</text>
+    <text x="60" y="138">ILogger logger)</text>
+    <text x="44" y="156">{</text>
+    <text x="60" y="176" fill="#7a5cf0">private readonly IRoomRepository</text>
+    <text x="60" y="194" fill="#7a5cf0">    _repository = repository;</text>
+    <text x="60" y="220">public Room? Find(string n) {</text>
+    <text x="76" y="238" fill="#58a6ff">logger.Log(n);</text>
+    <text x="76" y="256">return _repository.Find(n); } }</text>
+  </g>
+
+  <line x1="410" y1="166" x2="440" y2="166" stroke="#7a5cf0" stroke-width="2" marker-end="url(#m3)"/>
+
+  <rect x="446" y="52" width="370" height="228" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="466" y="76" font-size="13" font-weight="700" fill="#d29922">Lo que emite el compilador</text>
+  <g font-family="ui-monospace,monospace" font-size="11.5" fill="#f0f6fc">
+    <text x="466" y="102">public sealed class RoomService</text>
+    <text x="466" y="120">{</text>
+    <text x="482" y="140" fill="#58a6ff">private readonly ILogger &lt;logger&gt;P;</text>
+    <text x="482" y="158" font-size="10.5" fill="#484f58">campo oculto: logger se usa fuera del ctor</text>
+    <text x="482" y="180" fill="#7a5cf0">private readonly IRoomRepository</text>
+    <text x="482" y="198" fill="#7a5cf0">    _repository;</text>
+    <text x="482" y="222">public RoomService(IRoomRepository r,</text>
+    <text x="498" y="240">ILogger l) { &lt;logger&gt;P = l;</text>
+    <text x="498" y="258">_repository = r; } }</text>
+  </g>
+
+  <rect x="24" y="300" width="792" height="96" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="44" y="324" font-size="12" fill="#8b949e">· Un parámetro usado <tspan font-weight="700" fill="#c9d1d9">solo dentro del constructor</tspan> no genera campo: no hay coste por capturar lo que no se captura.</text>
+  <text x="44" y="348" font-size="12" fill="#8b949e">· En una <tspan font-family="ui-monospace,monospace" fill="#c9d1d9">class</tspan>, los parámetros primarios NO son propiedades públicas (en un <tspan font-family="ui-monospace,monospace" fill="#c9d1d9">record</tspan> sí: semana 05).</text>
+  <text x="44" y="372" font-size="12" fill="#f85149">· No hay cuerpo donde poner guard clauses: valida en un inicializador de campo o escribe un constructor normal.</text>
+</svg>
